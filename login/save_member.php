@@ -9,9 +9,9 @@ $sql = "UPDATE `users`
            `eduction`='{$_POST['eduction']}', 
            `addr`='{$_POST['addr']}', 
            `idcard`='{$_POST['idcard']}', 
-           `email`='{$_POST['email']}' 
+           `e-mail`='{$_POST['e-mail']}',
            `passnote`='{$_POST['passnote']}',
-           `update_date`='{$_POST['update_date']}', 
+           `update_date`='{$_POST['update_date']}'
       WHERE  `id`='{$_POST['id']}'";
 
 $pdo->exec($sql);

@@ -29,8 +29,18 @@
         </tr>
         <tr>
             <td>性別</td>
-            <td><input type="radio" name="gender" value="<?=$user['gender'];?>">男</td>
-            <td><input type="radio" name="gender" value="<?=$user['gender'];?>">女</td>
+            <!-- 選擇性別的預設值 -->
+            <?php
+            if ($user['gender']==0) {
+                $man='checked';
+                $woman='';
+            }else{
+                $man='';
+                $woman='checked';
+            }
+            ?>
+            <td><input type="radio" name="gender" value="0" <?php echo $man;?>>男</td>
+            <td><input type="radio" name="gender" value="1" <?php echo $woman;?>>女</td>
         </tr>
         <tr>
             <td>生日</td>
@@ -49,8 +59,8 @@
             <td><input type="text" name="idcard" value="<?=$user['idcard'];?>"></td>
         </tr>
         <tr>
-            <td>email</td>
-            <td><input type="email" name="email" value="<?=$user['email'];?>"></td>
+            <td>e-mail</td>
+            <td><input type="email" name="e-mail" value="<?=$user['e-mail'];?>"></td>
         </tr>
         <tr>
             <td>電話</td>
@@ -60,10 +70,13 @@
             <td>密碼提示</td>
             <td><input type="text" name="passnote" value="<?=$user['passnote'];?>"></td>
         </tr>
+        <tr>
+            <td><input type="hidden" name="update_date" value="<?=date('Y-m-d H:i:s');?>"></td>
+        </tr>
     </table>
     <div>
         <input type="hidden" name="id" value="<?=$user['id'];?>">
-        <input type="submit" value="編輯"><input type="reset" value="重置">
+        <input type="submit" value="更新"><input type="reset" value="重置">
     </div>
 </form>
 </body>

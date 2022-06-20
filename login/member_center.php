@@ -25,10 +25,19 @@
 
     $sql = "select * from `users` where acc='{$_SESSION['user']}'";
     $user = $pdo->query($sql)->fetch(PDO::FETCH_ASSOC);
+
+    
+
     echo '序號:' . $user['id'] . "<br>";
     echo '帳號:' . $user['acc'] . "<br>";
     echo '姓名:' . $user['name'] . "<br>";
-    echo '性別:' . $user['gender'] . "<br>";
+// 將性別0 1 代回 男 女
+    if ($user['gender']==0) {
+        $gender='男';
+    }else{
+        $gender='女';
+    }
+    echo '性別:' . $gender . "<br>";
     echo '生日:' . $user['birthday'] . "<br>";
     echo '畢業學校:' . $user['eduction'] . "<br>";
     echo '地址:' . $user['addr'] . "<br>";
@@ -36,12 +45,12 @@
     echo '電話:' . $user['phone'] . "<br>";
     echo '註冊日期:' . $user['reg_date'] . "<br>";
     ?>
-    <button><a href='edit.php?id=<?= $user['id']; ?>'>編輯</a></button>
+    <button><a href='edit.php?id=<?= $user['id']; ?>'>更新</a></button>
     <form action="edit.php" method="post">
         <input type="hidden" name="id" value="<?= $user['id']; ?>">
-        <input type="submit" value="編輯">
+        <input type="submit" value="更新">
     </form>
-    <button onclick="location.href='edit.php?id=<?= $user['id']; ?>'">編輯</button>
+    <button onclick="location.href='edit.php?id=<?= $user['id']; ?>'">更新</button>
     <p>&nbsp;</p>
     <p>&nbsp;</p>
     <p>&nbsp;</p>

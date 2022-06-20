@@ -28,8 +28,8 @@
         </tr>
         <tr>
             <td>性別</td>
-            <td><input type="radio" name="gender" value="">男</td>
-            <td><input type="radio" name="gender" value="">女</td>
+            <td><input type="radio" name="gender" value="0">男</td>
+            <td><input type="radio" name="gender" value="1">女</td>
         </tr>
         <tr>
             <td>生日</td>
