@@ -51,12 +51,8 @@
         <input type="submit" value="更新">
     </form>
     <button onclick="location.href='edit.php?id=<?= $user['id']; ?>'">更新</button>
-    <p>&nbsp;</p>
-    <p>&nbsp;</p>
-    <p>&nbsp;</p>
-    <p>&nbsp;</p>
-    <p>&nbsp;</p>
-    <a class="remove" href='remove_acc.php?id=<?= $user['id']; ?>'>移除個人資料</a>
+  
+    <a class="remove" href="javascript:if(confirm('確實要刪除嗎?'))location='remove.php?id=<?=$user['id']; ?>'">刪除</a> 
 </body>
 
 </html>
