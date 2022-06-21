@@ -17,6 +17,7 @@ if (isset($_POST['acc'])) {
     $chk = $pdo->query($sql)->fetchColumn();
 
     // if ($acc == $user['acc'] && $pw == $user['pw']) {
+    // 如果有符合帳號密碼的資料就進入會員中心
     if ($chk) {
         $_SESSION['user'] = $acc;
         header("location:member_center.php");
