@@ -62,12 +62,22 @@
     echo '註冊日期:' . $user['reg_date'] . "<br>";
     ?>
     <!-- <button><a href='edit.php?id=<?= $user['id']; ?>'>更新</a></button> -->
+    <!-- <button onclick="location.href='edit.php?id=<?= $user['id']; ?>'">更新</button> -->
+    
+    <div id="list">
     <form action="edit.php" method="post">
         <input type="hidden" name="id" value="<?= $user['id']; ?>">
         <input type="submit" value="更新">
     </form>
-    <!-- <button onclick="location.href='edit.php?id=<?= $user['id']; ?>'">更新</button> -->
+    
     <a class="remove" href="javascript:if(confirm('確實要刪除嗎?'))location='remove.php?id=<?= $user['id']; ?>'">刪除</a>
+    
+    </div>
+
+
+
+
+
 </body>
 
 </html>
