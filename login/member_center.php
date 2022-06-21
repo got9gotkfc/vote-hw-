@@ -18,15 +18,32 @@
 </head>
 
 <body>
-    <nav><a href="logout.php"> 登出</a></nav>
+<div id="header">
     <h1>會員中心</h1>
-    <?php include "connect.php";
+        <nav>
+            <a href="vote.php">Votes</a>
+            <a href="../index.php">Home</a>
+            <?php
+            include "connect.php";
+            if (isset($_SESSION['user'])) {
+            ?>
+                <a href="logout.php">登出</a>
+            <?php
+            } else {
+            ?>
+                <a href="login/login.php">登入</a>
+            <?php
+            }
+            ?>
+        </nav>
+    </div>
+    
+    <?php 
     $sql = "select * from `users` where acc='{$_SESSION['user']}'";
     $user = $pdo->query($sql)->fetch(PDO::FETCH_ASSOC);
     ?>
     歡迎<?= $user['name']; ?>,祝你有美好的一天<br>
     <?php
-
     echo '序號:' . $user['id'] . "<br>";
     echo '帳號:' . $user['acc'] . "<br>";
     echo '姓名:' . $user['name'] . "<br>";
@@ -44,13 +61,12 @@
     echo '電話:' . $user['phone'] . "<br>";
     echo '註冊日期:' . $user['reg_date'] . "<br>";
     ?>
-    <button><a href='edit.php?id=<?= $user['id']; ?>'>更新</a></button>
+    <!-- <button><a href='edit.php?id=<?= $user['id']; ?>'>更新</a></button> -->
     <form action="edit.php" method="post">
         <input type="hidden" name="id" value="<?= $user['id']; ?>">
         <input type="submit" value="更新">
     </form>
-    <button onclick="location.href='edit.php?id=<?= $user['id']; ?>'">更新</button>
-
+    <!-- <button onclick="location.href='edit.php?id=<?= $user['id']; ?>'">更新</button> -->
     <a class="remove" href="javascript:if(confirm('確實要刪除嗎?'))location='remove.php?id=<?= $user['id']; ?>'">刪除</a>
 </body>
 

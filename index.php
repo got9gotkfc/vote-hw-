@@ -11,12 +11,15 @@
 <body>
     <div id="header">
         <nav>
+            <h1>投票系統</h1>
             <a href="login/chk_login.php">Votes</a>
             <a href="index.php">Home</a>
             <?php
+            include "login/connect.php";
             if (isset($_SESSION['user'])) {
-            ?>
-                <a href="logout.php">登出</a>
+            ?> 
+                <a href="login/logout.php">登出</a>
+                <a href="login/member_center.php">會員中心</a>
             <?php
             } else {
             ?>
