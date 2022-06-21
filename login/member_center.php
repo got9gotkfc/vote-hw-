@@ -7,11 +7,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>會員中心</title>
     <style>
-        .remove{
-            color:#eee;
+        .remove {
+            color: #eee;
         }
-        .remove:hover{
-            color:red;
+
+        .remove:hover {
+            color: red;
         }
     </style>
 </head>
@@ -19,23 +20,21 @@
 <body>
     <nav><a href="logout.php"> 登出</a></nav>
     <h1>會員中心</h1>
-    <?php include "connect.php"; ?>
-    歡迎<?= $_SESSION['user']; ?>,祝你有美好的一天<br>
-    <?php
-
+    <?php include "connect.php";
     $sql = "select * from `users` where acc='{$_SESSION['user']}'";
     $user = $pdo->query($sql)->fetch(PDO::FETCH_ASSOC);
-
-    
+    ?>
+    歡迎<?= $user['name']; ?>,祝你有美好的一天<br>
+    <?php
 
     echo '序號:' . $user['id'] . "<br>";
     echo '帳號:' . $user['acc'] . "<br>";
     echo '姓名:' . $user['name'] . "<br>";
-// 將性別0 1 代回 男 女
-    if ($user['gender']==0) {
-        $gender='男';
-    }else{
-        $gender='女';
+    // 將性別0 1 代回 男 女
+    if ($user['gender'] == 0) {
+        $gender = '男';
+    } else {
+        $gender = '女';
     }
     echo '性別:' . $gender . "<br>";
     echo '生日:' . $user['birthday'] . "<br>";
@@ -51,8 +50,8 @@
         <input type="submit" value="更新">
     </form>
     <button onclick="location.href='edit.php?id=<?= $user['id']; ?>'">更新</button>
-  
-    <a class="remove" href="javascript:if(confirm('確實要刪除嗎?'))location='remove.php?id=<?=$user['id']; ?>'">刪除</a> 
+
+    <a class="remove" href="javascript:if(confirm('確實要刪除嗎?'))location='remove.php?id=<?= $user['id']; ?>'">刪除</a>
 </body>
 
 </html>
