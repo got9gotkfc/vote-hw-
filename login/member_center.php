@@ -21,7 +21,7 @@
 <div id="header">
     <h1>會員中心</h1>
         <nav>
-            <a href="vote.php">Votes</a>
+            <a href="../vote/vote.php">Votes</a>
             <a href="../index.php">Home</a>
             <?php
             include "connect.php";
@@ -37,7 +37,7 @@
             ?>
         </nav>
     </div>
-    
+
     <?php 
     $sql = "select * from `users` where acc='{$_SESSION['user']}'";
     $user = $pdo->query($sql)->fetch(PDO::FETCH_ASSOC);
