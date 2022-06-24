@@ -56,6 +56,10 @@
                 <input type="button" value="刪除" onclick="del()">
             </div>
         </div>
+        <div id="end">
+            <label>結束時間:</label>
+            <input type="datetime-local" name="end" value="">
+        </div>
         <input type="submit" value="新增">
 
     </form>
