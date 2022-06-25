@@ -18,11 +18,11 @@
             include "../login/connect.php";
             if (isset($_SESSION['user'])) {
             ?>
-                <a href="logout.php">登出</a>
+                <a href="../login/logout.php">登出</a>
             <?php
             } else {
             ?>
-                <a href="login/login.php">登入</a>
+                <a href="../login/login.php">登入</a>
             <?php
             }
             ?>

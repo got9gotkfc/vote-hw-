@@ -21,7 +21,7 @@
 <div id="header">
     <h1>會員中心</h1>
         <nav>
-            <a href="../vote/vote.php">投票中心</a>
+            <a href="../vote/vote_center.php">投票中心</a>
             <a href="../index.php">Home</a>
             <?php
             include "connect.php";
