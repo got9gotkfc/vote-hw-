@@ -26,5 +26,21 @@
             ?>
         </nav>
     </div>
+    <div id="vote">
+        <?php
+        include "../function.php";
+
+        $subjects=all('subjects');
+        // chk_array($subjects);
+        foreach ($subjects as $key => $subject) {
+            echo "<div id='now_vote<?=`$key+1`?>'>";
+            echo "<div>投票主題:{$subject['subject']}</div>";
+            echo "<div>投票人數:{$subject['total']}</div>";
+            echo "<div>截止時間:{$subject['end']}</div>";
+            echo "</div>";
+            echo "<br>";
+        }
+         ?>
+    </div>
 </body>
 </html>
