@@ -34,7 +34,7 @@ if (strtotime($subj['end']) < strtotime(date("Y-m-d h:i"))) {
     //判斷表單資料有沒有option這個項目，如果有，則使用迴圈把選項一個一個取出
     if (isset($_POST['option'])) {
         $opti = chk_options('options', $id);
-
+        
         if (empty($opti)) {
             foreach ($_POST['option'] as $opt) {
                 //如果選項的文字內容不是空的 ,則建立資料陣列,並將主題對應的id代入
