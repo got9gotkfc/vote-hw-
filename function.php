@@ -51,18 +51,6 @@ function  save($table,$arg,$chk){
 
 }
 
-// 檢查該subject是否有在資料庫
-function chk_subjects($table,$arg){
-    $pdo= pdo();
-    $sql="SELECT * FROM `$table` WHERE `subject`='{$arg['subject']}'";
-    return $pdo->query($sql)->fetch(PDO::FETCH_ASSOC);
-}
-// 檢查options是否在資料庫
-function chk_options($table,$arg){
-    $pdo= pdo();
-    $sql="SELECT * FROM `$table` WHERE `subject_id`='$arg'";
-    return $pdo->query($sql)->fetch(PDO::FETCH_ASSOC);
-}
 // 在資料庫中找到目標
 //目標$sql="SELECT * FROM $table WHERE $arg(條件);
 function search($table,$arg){
@@ -82,7 +70,7 @@ function search($table,$arg){
     
         }else{
     
-            $sql.=" `id`='$arg'";
+            $sql.="$arg";
     
         }
     

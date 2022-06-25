@@ -18,7 +18,7 @@
         // }
         ?>
         <nav>
-            <a href="../vote/vote.php">投票中心</a>
+            <a href="../vote/vote_center.php">投票中心</a>
             <a href="../index.php">Home</a>
             <?php
            include "../login/connect.php";

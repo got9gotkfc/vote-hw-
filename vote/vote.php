@@ -4,16 +4,17 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>投票中心</title>
+    <title>開始投票</title>
 </head>
 <body>
 <div id="header">
-    <h1>投票中心</h1>
+        <h1>開始投票</h1>
         <nav>
-            <a href="../vote/creatvote.php">創建投票</a>
+            <a href="../vote/vote_center.php">投票中心</a>
             <a href="../index.php">Home</a>
             <?php
             include "../login/connect.php";
+            
             if (isset($_SESSION['user'])) {
             ?>
                 <a href="logout.php">登出</a>
@@ -24,24 +25,29 @@
             <?php
             }
             ?>
+            
         </nav>
     </div>
-    <div id="vote">
+   <form action="../back/count_center.php?subject=<?=$_GET['subject'];?>" method="post">
         <?php
         include "../function.php";
-
-        $subjects=all('subjects');
-        // chk_array($subjects);
-        foreach ($subjects as $key => $subject) {
-            $a=$key+1;
-            echo "<div id='now_vote$a'>";
-            echo "<div>投票主題:{$subject['subject']}</div>";
-            echo "<div>投票人數:{$subject['total']}</div>";
-            echo "<div>截止時間:{$subject['end']}</div>";
-            echo "</div>";
-            echo "<br>";
+        
+        $find_subject=[
+            'subject'=>$_GET['subject']
+        ];
+        $id = search('subjects',$find_subject )['id'];
+        $find_options=[
+            'subject_id'=>$id
+        ];
+        $options= all('options', $find_options);
+       
+        foreach ($options as $key=> $value) {
+            echo "<input type='radio' name='options[]' value='{$key}'><label>{$value['option']}</label>";
         }
-         ?>
-    </div>
+            echo " <input type='submit' value='投票'>";
+            
+        ?>
+   </form> 
+    
 </body>
 </html>
