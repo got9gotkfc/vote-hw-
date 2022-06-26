@@ -67,7 +67,7 @@ function search($table,$arg)
     
             }
     
-            $sql.=implode("" ,$tmp);
+            $sql.=implode("AND" ,$tmp);
     
         }else{
     
@@ -205,4 +205,25 @@ function c($table,$arg,$chk){
     $sql="SELECT COUNT($arg) FROM `$table` WHERE `$arg`='$chk'";
     // return $pdo->exec($sql);
     return  $pdo->query($sql)->fetch(PDO::FETCH_ASSOC);
+}
+// 找到符合條件且id最大的那一筆資料
+function m($table,$arg){
+    $pdo=pdo();
+    $sql="SELECT MAX(id) FROM `$table` WHERE ";
+    if(is_array($arg)){
+    
+        foreach($arg as $key => $value){
+
+            $tmp[]="`$key`='$value'";
+
+        }
+
+        $sql.=implode("AND" ,$tmp);
+
+    }else{
+
+        $sql.="$arg";
+
+    }
+    return $pdo->query($sql)->fetch(PDO::FETCH_ASSOC);
 }
