@@ -16,7 +16,7 @@ $add_subject = [
     'start' => date("Y-m-d h:i"),
     'end' => $end
 ];
-$find_max_subject=m('subjects',"`subject`='$subject'");
+$find_max_subject=max_id_search('subjects',"`subject`='$subject'");
 $max_subject=reset($find_max_subject);
 $chk_subject=search('subjects',"`id`='$max_subject'");
 // chk_array($chk_subject);

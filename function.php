@@ -207,7 +207,7 @@ function c($table,$arg,$chk){
     return  $pdo->query($sql)->fetch(PDO::FETCH_ASSOC);
 }
 // 找到符合條件且id最大的那一筆資料
-function m($table,$arg){
+function max_id_search($table,$arg){
     $pdo=pdo();
     $sql="SELECT MAX(id) FROM `$table` WHERE ";
     if(is_array($arg)){
