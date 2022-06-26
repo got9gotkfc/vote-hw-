@@ -53,10 +53,11 @@ function  save($table,$arg){
 
 // 在資料庫中找到目標
 //目標$sql="SELECT * FROM $table WHERE $arg(條件);
-function search($table,$arg){
+function search($table,$arg)
+{
     $pdo=pdo();
     
-    $sql="SELECT * FROM $table WHERE ";
+    $sql="SELECT * FROM `$table` WHERE ";
         // 判斷是不是陣列 如果是用foreach串起來
         if(is_array($arg)){
     
@@ -66,16 +67,16 @@ function search($table,$arg){
     
             }
     
-            $sql.=implode(" AND " ,$tmp);
+            $sql.=implode("" ,$tmp);
     
         }else{
     
             $sql.="$arg";
     
         }
-    
+    // echo $sql;
         return $pdo->query($sql)->fetch(PDO::FETCH_ASSOC);
-    }
+}
 
 // 叫出資料庫所有符合條件的資料，可輸入多個$arg
 function all($table, ...$arg)
@@ -205,6 +206,3 @@ function c($table,$arg,$chk){
     // return $pdo->exec($sql);
     return  $pdo->query($sql)->fetch(PDO::FETCH_ASSOC);
 }
-
-
-?>

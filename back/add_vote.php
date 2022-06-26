@@ -16,9 +16,12 @@ $add_subject = [
     'start' => date("Y-m-d h:i"),
     'end' => $end
 ];
+$find_subject=['subject' => $subject];
+$chk_subject=search('subjects',$find_subject);
 
 
-if (strtotime($chk_subject['end']) > strtotime(date("Y-m-d h:i"))) {
+
+if (strtotime($chk_subject['end']) > strtotime(date("Y-m-d H:i:s"))) {
     echo "<h1>此投票尚未結束，無法創建一樣的投票</h1>";
     echo  "<a href='../vote/creatvote.php'>回上一頁</a>";
 } else {
