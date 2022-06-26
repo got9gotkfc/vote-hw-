@@ -7,6 +7,7 @@ date_default_timezone_set('Asia/Taipei');
 $a=['acc'=>$_SESSION['user']];
 $user=search('users',$a);
 // chk_array($user);
+
 // 在subjects中找出符合$_GET['subject']的資料
 $b=['subject'=>$_GET['subject']];
 $subject=search('subjects',$b);
@@ -29,6 +30,7 @@ $factor=search('log',$chk_log);
 // chk_array($log);
 // log的資料庫沒存進去 是因為它只能存數字
 save('log',$log,$factor);
+
 
 
 ?>

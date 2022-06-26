@@ -199,5 +199,11 @@ function  q($sql){
 
 }
 
+function c($table,$arg,$chk){
+    $pdo=pdo();
+    $sql="SELECT COUNT($arg) FROM `$table` WHERE `$arg`='$chk'";
+    return $pdo->exec($sql);
+}
+
 
 ?>
