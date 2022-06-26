@@ -36,11 +36,12 @@
         // chk_array($subjects);
         foreach ($subjects as $key => $subject) {
             $a = $key + 1;
-        
+           
             echo "<div id='now_vote$a'>";
             echo "<div>投票主題:<a href='vote.php?subject={$subject['subject']}'>{$subject['subject']}</a></div>";
             echo "<div>投票人數:{$subject['total']}</div>";
             echo "<div>截止時間:{$subject['end']}</div>";
+            echo "<div><a href="."javascript:if(confirm('確實要刪除嗎?'))location='../back/delete.php?subject={$subject['id']}'".">刪除投票</a></div>";
             echo "</div>";
             
             echo "<br>";

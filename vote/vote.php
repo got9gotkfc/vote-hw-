@@ -31,7 +31,7 @@
    <form action="../back/count_center.php?subject=<?=$_GET['subject'];?>" method="post">
         <?php
         include "../function.php";
-        
+            echo "<h2>{$_GET['subject']}</h2>";
         $find_subject=[
             'subject'=>$_GET['subject']
         ];

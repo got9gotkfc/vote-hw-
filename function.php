@@ -151,7 +151,7 @@ function del($table,$arg){
 
     }else{
 
-        $sql.=" `id`='$arg'";
+        $sql.="$arg";
 
     }
 
