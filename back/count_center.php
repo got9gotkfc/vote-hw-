@@ -11,7 +11,7 @@ $user=search('users',$a);
 // 在subjects中找出符合$_GET['subject']的資料
 $b=['subject'=>$_GET['subject']];
 $subject=search('subjects',$b);
-// chk_array($subject);
+chk_array($subject);
 
 // chk_array($_POST['options'][0]);
 $log=[
@@ -30,7 +30,10 @@ $factor=search('log',$chk_log);
 // chk_array($log);
 // log的資料庫沒存進去 是因為它只能存數字
 save('log',$log,$factor);
-
+$count=c('log','subject_id',$subject['id']);
+$subject['total']=reset($count);
+chk_array($subject);
+save('subject',$subject,$subject);
 
 
 ?>

@@ -17,16 +17,16 @@ function chk_array($a)
 
 // 將建好的投票存入資料庫
 // 目標:$sql="INSERT INTO $table('array_keys($arg)') VALUES ('$arg');"
-function  save($table,$arg,$chk){
+function  save($table,$arg){
     $pdo=pdo();
     $sql="";
     
     // 如果這個subject原本就存在 資料庫會給他一個id 判斷有沒有id 就知道有沒有在資料庫 有在資料庫的話就改為更新
     // 目標:$sql="UPDATE $table SET `$key`='$value' WHERE `id`='$arg['id']'";
-    if(isset($chk['id'])){
+    if(isset($arg['id'])){
         //update
 
-        foreach($chk as $key => $value){
+        foreach($arg as $key => $value){
             // id要放在WHERE之後，先把id以外的值取出來
             if($key!='id'){
 
@@ -35,7 +35,7 @@ function  save($table,$arg,$chk){
 
         }
         //完成目標sql語法 implode用,隔開
-        $sql.="UPDATE $table SET ".implode(" , " ,$tmp)." WHERE `id`='{$chk['id']}'";
+        $sql.="UPDATE $table SET ".implode(" , " ,$tmp)." WHERE `id`='{$arg['id']}'";
 
     }else{
         //insert
@@ -202,7 +202,8 @@ function  q($sql){
 function c($table,$arg,$chk){
     $pdo=pdo();
     $sql="SELECT COUNT($arg) FROM `$table` WHERE `$arg`='$chk'";
-    return $pdo->exec($sql);
+    // return $pdo->exec($sql);
+    return  $pdo->query($sql)->fetch(PDO::FETCH_ASSOC);
 }
 
 

@@ -16,48 +16,24 @@ $add_subject = [
     'start' => date("Y-m-d h:i"),
     'end' => $end
 ];
-// 測試BUG用
-// chk_array(isset($date['subject']));
-// 如果已經在資料庫就會有單筆資料+id，如果沒有則是""
-// $a="`subject`='{$add_subject['subject']}'";//條件
-// $subj = search('subjects',$a );
-$a=[
-    'subject' => $subject,
-    'multiple' => $_POST['multiple'],
-];
-$b= search('subjects',$a );
-chk_array($b);
-save('subjects', $add_subject, $b);
-// if (strtotime($add_subject['end']) < strtotime(date("Y-m-d h:i"))) {
-//     echo "<h1>此投票尚未結束，無法創建一樣的投票</h1>";
-//     echo  "<a href='../vote/creatvote.php'>回上一頁</a>";
-// } else {
-//     save('subjects', $add_subject, $subj);
 
-//     //利用剛才存入的投票主題文字來找出該筆資料並取得id
-//     $id = search('subjects', $a)['id'];
 
-//     //判斷表單資料有沒有option這個項目，如果有，則使用迴圈把選項一個一個取出
-//     if (isset($_POST['option'])) {
-//         $subject_id="`subject_id`='$id'";
-//         $opti = search('options', $subject_id);
-        
-//         if (empty($opti)) {
-//             foreach ($_POST['option'] as $opt) {
-//                 //如果選項的文字內容不是空的 ,則建立資料陣列,並將主題對應的id代入
-//                 if ($opt != "") {
-//                     $add_option = [
-//                         'option' => $opt,
-//                         'subject_id' => $id
-//                     ];
-//                 }
-//                 save("options", $add_option, $opti);
-//                 //使用to()函式來取代header，請參考base.php中的函式to($url)
-//                 // to('../vote/vote_center.php');
-//             }
-//         } else {
-//             echo "<h1>選項無法修改!!</h1>";
-//             echo "<a href='../vote/creatvote.php'>回上一頁</a>";
-//         }
-//     }
-// }
+if (strtotime($chk_subject['end']) > strtotime(date("Y-m-d h:i"))) {
+    echo "<h1>此投票尚未結束，無法創建一樣的投票</h1>";
+    echo  "<a href='../vote/creatvote.php'>回上一頁</a>";
+} else {
+    save('subjects', $add_subject);
+    //利用剛才存入的投票主題文字來找出該筆資料並取得id
+    $id = search('subjects', $add_subject)['id'];
+    foreach ($_POST['option'] as $opt) {
+        //如果選項的文字內容不是空的 ,則建立資料陣列,並將主題對應的id代入
+        if ($opt != "") {
+            $add_option = [
+                'option' => $opt,
+                'subject_id' => $id
+            ];
+        }
+        save("options", $add_option);
+        to('../vote/vote_center.php');
+    }
+}
