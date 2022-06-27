@@ -16,9 +16,8 @@ $add_subject = [
     'start' => date("Y-m-d h:i"),
     'end' => $end
 ];
-$find_max_subject=max_id_search('subjects',"`subject`='$subject'");
-$max_subject=reset($find_max_subject);
-$chk_subject=search('subjects',"`id`='$max_subject'");
+$chk_subject=max_id_search('subjects',"`subject`='$subject'");
+
 // chk_array($chk_subject);
 if (strtotime($chk_subject['end']) > strtotime(date("Y-m-d H:i:s"))) {
     echo "<h1>此投票尚未結束，無法創建一樣的投票</h1>";

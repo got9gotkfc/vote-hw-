@@ -10,27 +10,39 @@ $user = search('users', $find_user);
 
 // 在subjects中找出符合$_GET['subject']的資料
 $find_subject = ['subject' => $_GET['subject']];
-$subject = search('subjects', $find_subject);
+$subject = max_id_search('subjects', $find_subject);
 // chk_array($subject);
-
-// chk_array($_POST['options'][0]);
-$log = [
-    'user_id' => $user['id'],
+$logid = [
     'subject_id' => $subject['id'],
-    'option_id' => $_POST['options'][0],
-    'vote_time' => date("Y-m-d h:i")
+    'user_id' => $user['id']
 ];
+$log = search('log', $logid);
 
-save('log', $log);
-$count = c('log', 'subject_id', $subject['id']);
-$subject['total'] = reset($count);
-// chk_array($subject);
-save('subjects',$subject);
-$a = ['subject_id' => $subject['id']];
-$opt = All('options', $a);
+// 判斷這個帳號的人有沒有投過這個主題
 
-$count = c('log', 'option_id', $_POST['options'][0]);
+if ($log == "") {
+    $log = [
+        'user_id' => $user['id'],
+        'subject_id' => $subject['id'],
+        'option_id' => $_POST['options'][0],
+        'vote_time' => date("Y-m-d h:i")
+    ];
+    save('log', $log);
 
-$opt[$_POST['options'][0]]['total'] = reset($count);
-save('options',$opt[$_POST['options'][0]]);
-?>
+    // 數出投票人數存入$subject['total']
+    $count = c('log', 'subject_id', $subject['id']);
+    $subject['total'] = reset($count);
+    save('subjects', $subject);
+
+    // 叫出選項
+    $sub_id = ['subject_id' => $subject['id']];
+    $opt = All('options', $sub_id);
+    // 數出這次投的選項種共有多少票，存入你投的選項
+    $count = c('log', 'option_id', $_POST['options'][0]);
+    $opt[$_POST['options'][0]]['total'] = reset($count);
+    save('options', $opt[$_POST['options'][0]]);
+    to('../vote/vote_center.php');
+} else {
+    echo "<h1>無法重複投票</h1>";
+    echo "<a href='../vote/vote_center.php'>回投票中心</a>";
+}
