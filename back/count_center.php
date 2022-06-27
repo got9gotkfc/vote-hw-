@@ -41,8 +41,8 @@ if ($log == "") {
     $count = c('log', 'option_id', $_POST['options'][0]);
     $opt[$_POST['options'][0]]['total'] = reset($count);
     save('options', $opt[$_POST['options'][0]]);
-    to('../vote/vote_center.php');
+    to('../front/vote_center.php');
 } else {
     echo "<h1>無法重複投票</h1>";
-    echo "<a href='../vote/vote_center.php'>回投票中心</a>";
+    echo "<a href='../front/vote_center.php'>回投票中心</a>";
 }

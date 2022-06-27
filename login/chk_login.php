@@ -1,7 +1,7 @@
 <?php
 include "../function.php";
 include "connect.php";
-  // 檢查帳密是否正確
+// 檢查帳密是否正確
 if (isset($_POST['acc'])) {
     $acc = $_POST['acc'];
     $pw = md5($_POST['pw']);
@@ -16,16 +16,21 @@ if (isset($_POST['acc'])) {
     // if ($acc == $user['acc'] && $pw == $user['pw']) {
     // 如果有符合帳號密碼的資料就進入會員中心
     if ($chk) {
-        $_SESSION['user'] = $acc;
+        $find_user = ['acc' => $acc];
+        $user = search('users', $find_user);
+        $_SESSION = [
+            'user' => $user['acc'],
+            'id' => $user['id']
+        ];
         header("location:member_center.php");
     } else {
         header("location:login.php?error=帳號或密碼錯誤");
     }
-} else{
-// 檢查登入了沒 沒登入則跳到login
-if (isset($_SESSION['user'])) {
-   header("location:../vote/vote.php");
 } else {
-    header("location:login.php");
-}
+    // 檢查登入了沒 沒登入則跳到login
+    if (isset($_SESSION['user'])) {
+        header("location:../vote/vote.php");
+    } else {
+        header("location:login.php");
+    }
 }

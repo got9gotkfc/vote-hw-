@@ -1,8 +1,8 @@
 <?php
 include_once "connect.php";
-
+$pw=md5($_POST['pw']);
 $sql = "UPDATE `users` 
-      SET  `pw`='{$_POST['pw']}', 
+      SET  `pw`='$pw', 
            `name`='{$_POST['name']}',  
            `gender`='{$_POST['gender']}', 
            `birthday`='{$_POST['birthday']}',

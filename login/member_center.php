@@ -21,10 +21,17 @@
 <div id="header">
     <h1>會員中心</h1>
         <nav>
-            <a href="../vote/vote_center.php">投票中心</a>
+            <?php
+            include "connect.php";  
+            if ($_SESSION['id']<=3) {
+              echo   "<a href='../back/vote_center.php'>投票中心</a>";
+            }  else{
+              echo   "<a href='../front/vote_center.php'>投票中心</a>";
+            }
+            ?>
             <a href="../index.php">Home</a>
             <?php
-            include "connect.php";
+            
             if (isset($_SESSION['user'])) {
             ?>
                 <a href="logout.php">登出</a>
@@ -44,7 +51,6 @@
     ?>
     歡迎<?= $user['name']; ?>,祝你有美好的一天<br>
     <?php
-    echo '序號:' . $user['id'] . "<br>";
     echo '帳號:' . $user['acc'] . "<br>";
     echo '姓名:' . $user['name'] . "<br>";
     // 將性別0 1 代回 男 女

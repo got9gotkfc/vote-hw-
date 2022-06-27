@@ -10,7 +10,7 @@
     <h1>編輯會員資料</h1>
     <?php 
     include_once "connect.php";
-    $sql="SELECT * FROM users WHERE id='{$_GET['id']}'";
+    $sql="SELECT * FROM users WHERE `id`='{$_SESSION['id']}'";
     $user=$pdo->query($sql)->fetch();
     ?>
 <form action="save_member.php" method="post">

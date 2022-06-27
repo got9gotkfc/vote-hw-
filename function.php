@@ -227,8 +227,7 @@ function max_id_search($table,$arg){
         $sql.="$arg";
 
     }
-    $maxid=$pdo->query($sql)->fetch(PDO::FETCH_ASSOC);
-    $id= reset($maxid);
+    $id=$pdo->query($sql)->fetchColumn();
     
      return search($table,"`id`='$id'");
 }
