@@ -40,7 +40,7 @@
             $find_log = ['subject_id' => $subject['id']];
             $log = search('log', $find_log);
 
-            chk_array($_SESSION);
+           
             if ($log['subject_id'] == $_SESSION['id']) {
                 echo "<div id='now_vote$a'>";
                 echo "<div>投票主題:{$subject['subject']}</div>";

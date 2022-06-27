@@ -185,7 +185,6 @@ function math($table,$math,$col,...$arg){
  */
 
 function  to($url){
-
     header("location:".$url);
 
 }

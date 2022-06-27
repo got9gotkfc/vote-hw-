@@ -8,12 +8,9 @@ $find_user = ['acc' => $_SESSION['user']];
 $user = search('users', $find_user);
 // chk_array($user);
 
-// 在subjects中找出符合$_GET['subject']的資料
-$find_subject = ['subject' => $_GET['subject']];
-$subject = max_id_search('subjects', $find_subject);
 // chk_array($subject);
 $logid = [
-    'subject_id' => $subject['id'],
+    'subject_id' => $_GET['id'],
     'user_id' => $user['id']
 ];
 $log = search('log', $logid);
@@ -41,8 +38,18 @@ if ($log == "") {
     $count = c('log', 'option_id', $_POST['options'][0]);
     $opt[$_POST['options'][0]]['total'] = reset($count);
     save('options', $opt[$_POST['options'][0]]);
+
+    if($_SESSION['id']<3){
+    to('./vote_center.php');
+    }else{
     to('../front/vote_center.php');
+    }
 } else {
     echo "<h1>無法重複投票</h1>";
-    echo "<a href='../front/vote_center.php'>回投票中心</a>";
+    if($_SESSION['id']<3){
+        echo "<a href='./vote_center.php'>回投票中心</a>";
+        }else{
+         echo "<a href='../front/vote_center.php'>回投票中心</a>";
+        }
+   
 }

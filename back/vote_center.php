@@ -33,18 +33,30 @@
         include "../function.php";
 
         $subjects = all('subjects');
-        // chk_array($subjects);
+        
         foreach ($subjects as $key => $subject) {
             $a = $key + 1;
-           
-            echo "<div id='now_vote$a'>";
-            echo "<div>投票主題:<a href='vote.php?subject={$subject['subject']}'>{$subject['subject']}</a></div>";
-            echo "<div>投票人數:{$subject['total']}</div>";
-            echo "<div>截止時間:{$subject['end']}</div>";
-            echo "<div><a href="."javascript:if(confirm('確實要刪除嗎?'))location='../back/delete.php?subject={$subject['id']}'".">刪除投票</a></div>";
-            echo "</div>";
+            $find_log = ['subject_id' => $subject['id']];
+            $log = search('log', $find_log);
+
             
-            echo "<br>";
+            if ($log['user_id'] == $_SESSION['id']) {
+                echo "<div id='now_vote$a'>";
+                echo "<div>投票主題:{$subject['subject']}</div>";
+                echo "<div>投票人數:{$subject['total']}</div>";
+                echo "<div>截止時間:{$subject['end']}</div>";
+                echo "<div><a href='../public/result.php?id={$subject['id']}'>察看結果</a></div>";
+                echo "</div>";
+                echo "<br>";
+            } else {
+                echo "<div id='now_vote$a'>";
+                echo "<div>投票主題:{$subject['subject']}</div>";
+                echo "<div>投票人數:{$subject['total']}</div>";
+                echo "<div>截止時間:{$subject['end']}</div>";
+                echo "<div><a href='./vote.php?id={$subject['id']}'>開始投票</a></div>";
+                echo "</div>";
+                echo "<br>";
+            }
         }
         ?>
     </div>

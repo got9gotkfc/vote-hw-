@@ -28,6 +28,7 @@
     </div>
     <?php
     $subject=$_POST['subject'];
+    
     ?>
 
 </body>
