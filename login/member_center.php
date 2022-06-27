@@ -75,8 +75,12 @@
         <input type="hidden" name="id" value="<?= $user['id']; ?>">
         <input type="submit" value="更新">
     </form>
-    
-    <a class="remove" href="javascript:if(confirm('確實要刪除嗎?'))location='remove.php?id=<?= $user['id']; ?>'">刪除</a>
+    <?php
+    if ($_SESSION['id']<=3) {
+        echo   " <a class='remove' href="."javascript:if(confirm('確實要刪除嗎?'))location='./remove.php?id={$user['id']}'".">刪除</a>";
+      } 
+    ?>
+   
     
     </div>
 
