@@ -36,11 +36,13 @@
         
         foreach ($subjects as $key => $subject) {
             $a = $key + 1;
-            $find_log = ['subject_id' => $subject['id']];
-            $log = search('log', $find_log);
-
+            $find_log = [
+                'user_id'=>$_SESSION['id'],
+                'subject_id' => $subject['id']
+            ];
+            $log = c('log',$find_log);
             
-            if ($log['user_id'] == $_SESSION['id']) {
+            if ($log==1 || strtotime($subject['end'])< strtotime(date("Y-m-d H:i:s"))) {
                 echo "<div id='now_vote$a'>";
                 echo "<div>投票主題:{$subject['subject']}</div>";
                 echo "<div>投票人數:{$subject['total']}</div>";

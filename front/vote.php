@@ -28,16 +28,17 @@
             
         </nav>
     </div>
-   <form action="../back/count_center.php?subject=<?=$_GET['subject'];?>" method="post">
+   <form action="../back/count_center.php?id=<?=$_GET['id'];?>" method="post">
         <?php
         include "../function.php";
-            echo "<h2>{$_GET['subject']}</h2>";
-        $find_subject=[
-            'subject'=>$_GET['subject']
+        $find_subject = [
+            'id' => $_GET['id']
         ];
-        $id = search('subjects',$find_subject )['id'];
-        $find_options=[
-            'subject_id'=>$id
+        $subject = search('subjects', $find_subject);
+        echo "<h2>{$subject['subject']}</h2>";
+        
+        $find_options = [
+            'subject_id' => $subject['id']
         ];
         $options= all('options', $find_options);
        

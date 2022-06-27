@@ -37,16 +37,18 @@
         foreach ($subjects as $key => $subject) {
             $a = $key + 1;
 
-            $find_log = ['subject_id' => $subject['id']];
-            $log = search('log', $find_log);
-
-           
-            if ($log['subject_id'] == $_SESSION['id']) {
+            $find_log = [
+                'user_id'=>$_SESSION['id'],
+                'subject_id' => $subject['id']
+            ];
+            $log = c('log',$find_log);
+            
+            if ($log==1 || strtotime($subject['end'])< strtotime(date("Y-m-d H:i:s"))) {
                 echo "<div id='now_vote$a'>";
                 echo "<div>投票主題:{$subject['subject']}</div>";
                 echo "<div>投票人數:{$subject['total']}</div>";
                 echo "<div>截止時間:{$subject['end']}</div>";
-                echo "<div><a href='../public/result.php?subject={$subject['id']}'>察看結果</a></div>";
+                echo "<div><a href='../public/result.php?id={$subject['id']}'>察看結果</a></div>";
                 echo "</div>";
                 echo "<br>";
             } else {
@@ -54,7 +56,7 @@
                 echo "<div>投票主題:{$subject['subject']}</div>";
                 echo "<div>投票人數:{$subject['total']}</div>";
                 echo "<div>截止時間:{$subject['end']}</div>";
-                echo "<div><a href='./vote.php?subject={$subject['id']}'>開始投票</a></div>";
+                echo "<div><a href='./vote.php?id={$subject['id']}'>開始投票</a></div>";
                 echo "</div>";
                 echo "<br>";
             }

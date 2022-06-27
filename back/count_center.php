@@ -13,30 +13,34 @@ $logid = [
     'subject_id' => $_GET['id'],
     'user_id' => $user['id']
 ];
-$log = search('log', $logid);
 
+$log = search('log', $logid);
+chk_array($log);
 // 判斷這個帳號的人有沒有投過這個主題
 
 if ($log == "") {
     $log = [
         'user_id' => $user['id'],
-        'subject_id' => $subject['id'],
+        'subject_id' => $_GET['id'],
         'option_id' => $_POST['options'][0],
         'vote_time' => date("Y-m-d h:i")
     ];
     save('log', $log);
 
-    // 數出投票人數存入$subject['total']
-    $count = c('log', 'subject_id', $subject['id']);
-    $subject['total'] = reset($count);
+    // 數出投票人數存入$subject
+    $count = c('log', 'subject_id', $_GET['id']);
+    $subject=[ 
+    'id'=>$_GET['id'],
+    'total'=>$count 
+    ];
     save('subjects', $subject);
 
     // 叫出選項
-    $sub_id = ['subject_id' => $subject['id']];
+    $sub_id = ['subject_id' => $_GET['id']];
     $opt = All('options', $sub_id);
     // 數出這次投的選項種共有多少票，存入你投的選項
     $count = c('log', 'option_id', $_POST['options'][0]);
-    $opt[$_POST['options'][0]]['total'] = reset($count);
+    $opt[$_POST['options'][0]]['total'] = $count;
     save('options', $opt[$_POST['options'][0]]);
 
     if($_SESSION['id']<3){
