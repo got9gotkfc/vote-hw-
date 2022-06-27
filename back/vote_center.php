@@ -46,6 +46,7 @@
                 echo "<div>投票人數:{$subject['total']}</div>";
                 echo "<div>截止時間:{$subject['end']}</div>";
                 echo "<div><a href='../public/result.php?id={$subject['id']}'>察看結果</a></div>";
+                echo " <a class='remove' href="."javascript:if(confirm('確實要刪除嗎?'))location='./remove.php?id={$subject['id']}'".">刪除</a>";
                 echo "</div>";
                 echo "<br>";
             } else {
@@ -54,6 +55,7 @@
                 echo "<div>投票人數:{$subject['total']}</div>";
                 echo "<div>截止時間:{$subject['end']}</div>";
                 echo "<div><a href='./vote.php?id={$subject['id']}'>開始投票</a></div>";
+                echo "<a class='remove' href="."javascript:if(confirm('確實要刪除嗎?'))location='./delete.php?id={$subject['id']}'".">刪除</a>";
                 echo "</div>";
                 echo "<br>";
             }
