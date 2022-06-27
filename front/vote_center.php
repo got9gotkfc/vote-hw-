@@ -42,7 +42,7 @@
                 'subject_id' => $subject['id']
             ];
             $log = c('log',$find_log);
-            
+         
             if ($log==1 || strtotime($subject['end'])< strtotime(date("Y-m-d H:i:s"))) {
                 echo "<div id='now_vote$a'>";
                 echo "<div>投票主題:{$subject['subject']}</div>";

@@ -28,7 +28,8 @@ if ($log == "") {
     save('log', $log);
 
     // 數出投票人數存入$subject
-    $count = c('log', 'subject_id', $_GET['id']);
+    $sub=['subject_id'=> $_GET['id']];
+    $count = c('log', $sub);
     $subject=[ 
     'id'=>$_GET['id'],
     'total'=>$count 
@@ -36,10 +37,10 @@ if ($log == "") {
     save('subjects', $subject);
 
     // 叫出選項
-    $sub_id = ['subject_id' => $_GET['id']];
-    $opt = All('options', $sub_id);
+    $opt = All('options', $sub);
     // 數出這次投的選項種共有多少票，存入你投的選項
-    $count = c('log', 'option_id', $_POST['options'][0]);
+    $opti=[ 'option_id'=>$_POST['options'][0]];
+    $count = c('log',$opti);
     $opt[$_POST['options'][0]]['total'] = $count;
     save('options', $opt[$_POST['options'][0]]);
 
