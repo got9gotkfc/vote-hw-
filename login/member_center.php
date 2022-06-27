@@ -21,17 +21,14 @@
 <div id="header">
     <h1>會員中心</h1>
         <nav>
+             <a href="../index.php">Home</a>
             <?php
             include "connect.php";  
             if ($_SESSION['id']<=3) {
               echo   "<a href='../back/vote_center.php'>投票中心</a>";
             }  else{
               echo   "<a href='../front/vote_center.php'>投票中心</a>";
-            }
-            ?>
-            <a href="../index.php">Home</a>
-            <?php
-            
+            } 
             if (isset($_SESSION['user'])) {
             ?>
                 <a href="logout.php">登出</a>

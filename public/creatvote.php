@@ -11,17 +11,21 @@
 <body>
     <div id="header">
         <h1>創建投票</h1>
-        <?php 
+        <?php
         // include "../function.php";
         // if (!isset($_SESSION['user'])) {
         //     to('../login/login.php');
         // }
         ?>
         <nav>
-            <a href="../vote/vote_center.php">投票中心</a>
             <a href="../index.php">Home</a>
             <?php
-           include "../login/connect.php";
+            include "../login/connect.php";
+            if ($_SESSION['id'] <= 3) {
+                echo   "<a href='../back/vote_center.php'>投票中心</a>";
+            } else {
+                echo   "<a href='../front/vote_center.php'>投票中心</a>";
+            }
             if (isset($_SESSION['user'])) {
             ?>
                 <a href="logout.php">登出</a>
@@ -35,7 +39,7 @@
         </nav>
     </div>
     <form action="../back/add_vote.php" method="post">
-        
+
         <div>
             <label for="subject">投票主題</label>
             <input type="text" name="subject" id="subject">
@@ -47,10 +51,11 @@
             <label>單選</label>
             <input type="radio" name="multiple" value="1">
             <label>複選</label>
-        </div> <!--當輸入的項目為多項時,name的屬性要以array option[]-->
+        </div>
+        <!--當輸入的項目為多項時,name的屬性要以array option[]-->
         <div id="options">
             <div id="opt">
-               
+
                 <label>選項:</label>
                 <input type="text" name="option[]">
                 <input type="button" value="刪除" onclick="del()">
@@ -64,10 +69,9 @@
 
     </form>
     <script>
-    
         // 新增選項
         function more() {
-                                                                                            // 補上刪除按鈕
+            // 補上刪除按鈕
             let opt = `<div id="new"><label>選項:</label><input type="text" name="option[]"><input type="button" value="刪除" onclick="del()"></div>`;
             let opts = document.getElementById('options').innerHTML;
             opts = opts + opt;
