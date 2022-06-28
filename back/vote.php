@@ -15,13 +15,16 @@
             <a href="../index.php">Home</a>
             <?php
             include "../login/connect.php";
-            if ($_SESSION['id'] <= 3) {
-                echo   "<a href='../back/vote_center.php'>投票中心</a>";
-            } else {
-                echo   "<a href='../front/vote_center.php'>投票中心</a>";
-            }
+            if (isset($_SESSION)) {
+                if ($_SESSION['id'] <= 3) {
+                    echo   "<a href='./back/vote_center.php'>投票中心</a>";
+                } else {
+                    echo   "<a href='./front/vote_center.php'>投票中心</a>";
+                }
+            } 
             if (isset($_SESSION['user'])) {
             ?>
+                <a href="../login/member_center.php">會員中心</a>
                 <a href="../login/logout.php">登出</a>
             <?php
             } else {

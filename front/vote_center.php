@@ -12,12 +12,14 @@
     <div id="header">
         <h1>投票中心</h1>
         <nav>
-            <a href="../public/creatvote.php">創建投票</a>
             <a href="../index.php">Home</a>
+            <a href="../public/creatvote.php">創建投票</a>
+            
             <?php
             include "../login/connect.php";
             if (isset($_SESSION['user'])) {
             ?>
+                <a href="../login/member_center.php">會員中心</a>
                 <a href="../login/logout.php">登出</a>
             <?php
             } else {

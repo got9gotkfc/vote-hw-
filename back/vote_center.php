@@ -18,6 +18,7 @@
             include "../login/connect.php";
             if (isset($_SESSION['user'])) {
             ?>
+                <a href="../login/member_center.php">會員中心</a>
                 <a href="../login/logout.php">登出</a>
             <?php
             } else {
