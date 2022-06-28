@@ -21,7 +21,7 @@
         </tr>
         <tr>
             <td>密碼</td>
-            <td><input type="password" name="pw" value="<?=$user['pw'];?>"></td>
+            <td><input type="password" name="pw" value=""></td>
         </tr>
         <tr>
             <td>姓名</td>
