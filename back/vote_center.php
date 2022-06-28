@@ -10,7 +10,7 @@
 
 <body>
     <div id="header">
-        <h1>投票中心</h1>
+        <h1 style="color:red">投票中心</h1>
         <nav>
             <a href="../index.php">Home</a>
             <a href="../public/creatvote.php">創建投票</a>
