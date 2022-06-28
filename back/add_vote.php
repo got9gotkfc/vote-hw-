@@ -1,6 +1,7 @@
 <?php
 date_default_timezone_set('Asia/Taipei');
 include_once "../function.php";
+chk_array($_POST);
 // 抓從表單傳來的值
 $subject = $_POST['subject'];
 // 如果沒輸入結束時間則以start+7天代替
@@ -12,6 +13,7 @@ if ($_POST['end'] == "") {
 // 將表單的值存入陣列
 $add_subject = [
     'subject' => $subject,
+    'type_id'=>$_POST['type'],
     'multiple' => $_POST['multiple'],
     'start' => date("Y-m-d h:i"),
     'end' => $end

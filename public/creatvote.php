@@ -45,6 +45,15 @@
             <input type="text" name="subject" id="subject">
             <input type="button" value="新增選項" onclick="more()">
         </div>
+        <div id="type">
+           <select name="type" id="">
+                <option value="2">生活</option>
+                <option value="3">吃喝</option>
+                <option value="4">娛樂</option>
+                <option value="5">心理</option>
+                <option value="6">旅遊</option>
+           </select>
+        </div>
         <div id="selector">
             <!-- checked為預設選項 -->
             <input type="radio" name="multiple" value="0" checked>
