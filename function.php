@@ -159,27 +159,7 @@ function del($table,$arg){
 
     return $pdo->exec($sql);
 }
-function math($table,$math,$col,...$arg){
-    $pdo=pdo();
-    
-    $sql="SELECT $math(`$col`) FROM $table ";
-    
-        if(!empty($arg[0])){
-    
-            foreach($arg[0] as $key => $value){
-    
-                $tmp[]="`$key`='$value'";
-    
-            }
-    
-            $sql.=" WHERE " . implode(" AND " ,$tmp);
-    
-        }
-    
-        //使用fetchColumn()來取回第一欄位的資料，因為這個SQL語法
-        //只有select 一個欄位的資料，因此這個函式會直接回傳計算的結果出來
-        return $pdo->query($sql)->fetchColumn();
-    }
+
 /**
  * $url - 要導向的檔案路徑及檔名
  */
@@ -193,13 +173,6 @@ function  to($url){
 /**
  * $sql - SQL語句字串，取出符合SQL語句的全部資料
  */
-
-function  q($sql){
-    $pdo=pdo();
-    
-    return $pdo->query($sql)->fetchAll(PDO::FETCH_ASSOC);
-
-}
 
 function c($table,$arg){
     $pdo=pdo();
