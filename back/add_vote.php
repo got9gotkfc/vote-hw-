@@ -35,6 +35,11 @@ if (strtotime($chk_subject['end']) > strtotime(date("Y-m-d H:i:s"))) {
             ];
         }
         save("options", $add_option);
-        to('../vote/vote_center.php');
+        if($_SESSION['id']<3){
+            to('./vote_center.php');
+            }else{
+             to('../front/vote_center.php');
+            }
+        
     }
 }
