@@ -15,7 +15,7 @@ $logid = [
 ];
 
 $log = search('log', $logid);
-chk_array($log);
+
 // 判斷這個帳號的人有沒有投過這個主題
 
 if ($log == "") {
@@ -38,20 +38,27 @@ if ($log == "") {
 
     // 叫出選項
     $opt = All('options', $sub);
+    // chk_array($opt);
     // 數出這次投的選項種共有多少票，存入你投的選項
-    $opti=[ 'option_id'=>$_POST['options'][0]];
+    $opti=[
+        'subject_id'=>$_GET['id'], 
+        'option_id'=>$_POST['options'][0]
+    ];
+    // chk_array($_POST);
     $count = c('log',$opti);
+    // chk_array($count);
     $opt[$_POST['options'][0]]['total'] = $count;
+    // chk_array($opt[$_POST['options'][0]]);
     save('options', $opt[$_POST['options'][0]]);
 
-    if($_SESSION['id']<3){
+    if($_SESSION['id']<=3){
     to('./vote_center.php');
     }else{
     to('../front/vote_center.php');
     }
 } else {
     echo "<h1>無法重複投票</h1>";
-    if($_SESSION['id']<3){
+    if($_SESSION['id']<=3){
         echo "<a href='./vote_center.php'>回投票中心</a>";
         }else{
          echo "<a href='../front/vote_center.php'>回投票中心</a>";

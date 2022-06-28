@@ -37,7 +37,7 @@
         $option_id=['subject_id'=>$_GET['id']];
         $option=all('options',$option_id);
         foreach ($option as $key => $value) {
-            $point=number_format(($value['total'])/($subject['total']))*100;
+            $point=round(($value['total'])/($subject['total']),2)*100;
             echo "<tr>{$value['option']}:{$point}%</tr><br>";
         }
         ?>
