@@ -45,7 +45,7 @@
             ];
             $log = c('log',$find_log);
             $type = all('type');
-            if ($log==1 || strtotime($subject['end'])< strtotime(date("Y-m-d H:i:s"))) {
+            if ($log > 1 || strtotime($subject['end'])< strtotime(date("Y-m-d H:i:s"))) {
                 echo "<div id='now_vote$a'>";
                 echo "<div>投票主題:{$subject['subject']}</div>";
                 foreach ($type as $key => $typ) {

@@ -17,7 +17,7 @@
             include "../login/connect.php";
             if (isset($_SESSION)) {
                 if ($_SESSION['id'] <= 3) {
-                    echo   "<a href='./back/vote_center.php'>投票中心</a>";
+                    echo   "<a href='./vote_center.php'>投票中心</a>";
                 } else {
                     echo   "<a href='./front/vote_center.php'>投票中心</a>";
                 }
@@ -50,12 +50,17 @@
             'subject_id' => $subject['id']
         ];
         $options = all('options', $find_options);
-
+        if($subject['multiple']==0){
         foreach ($options as $key => $value) {
             echo "<input type='radio' name='options[]' value='{$key}'><label>{$value['option']}</label>";
         }
+        }else{
+            foreach ($options as $key => $value) {
+                echo "<input type='checkbox' name='options[]' value='{$key}'><label>{$value['option']}</label>";
+            }
+        } 
         echo " <input type='submit' value='投票'>";
-
+  
         ?>
     </form>
 
