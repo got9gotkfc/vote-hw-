@@ -27,9 +27,20 @@
         </nav>
     </div>
     <?php
-    $subject=$_POST['subject'];
-    
+    include "../function.php";
+    $subject_id=['id'=>$_GET['id']];
+    $subject=search('subjects',$subject_id);
     ?>
-
+    <h1><?=$subject['subject'];?></h1>
+    <table>
+        <?php
+        $option_id=['subject_id'=>$_GET['id']];
+        $option=all('options',$option_id);
+        foreach ($option as $key => $value) {
+            $point=number_format(($value['total'])/($subject['total']))*100;
+            echo "<tr>{$value['option']}:{$point}%</tr><br>";
+        }
+        ?>
+    </table>
 </body>
 </html>
