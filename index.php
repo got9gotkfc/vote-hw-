@@ -14,6 +14,7 @@
         }
 
         body {
+            height: 100%;
             display: flex;
             justify-content: center;
             flex-direction: column;
@@ -22,7 +23,7 @@
 
         #header {
             width: 100%;
-            height: 200px;
+            height: 100px;
             margin: auto;
             display: grid;
             border: 1px solid #0984e3;
@@ -56,9 +57,11 @@
             text-decoration: none;
 
         }
-        #mycanvs{
-            width: 500px;
-            height: 500px;
+        #content{
+            height: calc(100% - 150px);
+        }
+        #footer {
+           height: 50px;
         }
     </style>
 </head>
@@ -92,49 +95,10 @@
             ?>
         </nav>
     </div>
-    <canvas id="mycanvas">
-
-    </canvas>
-    <!-- <div id="now_vote"> -->
-    <!-- <?php
-            // include "./function.php";
-
-            // $subjects = all('subjects');
-
-            // foreach ($subjects as $key => $subject) {
-            //     $a = $key + 1;
-            //     if (strtotime($subject['end']) >= strtotime(date("Y-m-d H:i:s"))) {
-            //         echo "<div id='now_vote$a'>";
-            //         echo "<div>正在進行的投票:{$subject['subject']}</div>";
-            //         echo "<div>投票人數:{$subject['total']}</div>";
-            //         echo "<div>截止時間:{$subject['end']}</div>";
-            //         echo "</div>";
-            //         echo "<br>";
-            //     }
-            // }
-            ?>
+    <div id="content">
+    <canvas id="mycanvas"></canvas>
     </div>
-    <hr>
-    <div id="end_vote">
-        <?php
-        // $subjects = all('subjects');
-        // // chk_array($subjects);
-        // foreach ($subjects as $key => $subject) {
-        //     $a = $key + 1;
-
-        //     if (strtotime($subject['end']) < strtotime(date("Y-m-d H:i:s"))) {
-        //         echo "<div id='now_vote$a'>";
-        //         echo "<div>已經結束投票:{$subject['subject']}</div>";
-        //         echo "<div>投票人數:{$subject['total']}</div>";
-        //         echo "<div>截止時間:{$subject['end']}</div>";
-        //         echo "</div>";
-        //         echo "<br>";
-        //     }
-        // }
-        ?> -->
-
-    <!-- </div> -->
-    <div>
+    <div id="footer">
         footer
     </div>
     <script>
@@ -144,7 +108,7 @@
 
         function initCanvas() {
             ww = canvas.width = window.innerWidth
-            wh = canvas.height = window.innerHeight
+            wh = canvas.height = window.innerHeight - 200
 
         }
 
@@ -272,57 +236,57 @@
                 ctx.save()
                 ctx.lineWidth = 5;
                 ctx.translate(ww / 2, h * 10)
-                ctx.fillRect(-ww / 2, -wh*2, ww, 2*wh)
+                ctx.fillRect(-ww / 2, -wh * 2, ww, 2 * wh)
                 ctx.fillStyle = "white"
                 ctx.strokeStyle = "black"
-                ctx.strokeRect(-ww / 6, -wh / 3, ww / 3, wh / 3)
-                ctx.strokeRect(-ww / 18, -wh / 9, ww / 9, wh / 9)
+                ctx.strokeRect(-ww / 8, -wh / 4, ww / 4, wh / 4)
+                ctx.strokeRect(-ww / 24, -wh / 12, ww / 12, wh / 12)
                 //       正面
                 ctx.save()
                 ctx.beginPath()
-                ctx.arc(0, -wh / 9 * 2, wh / 18, 0, 2 * Math.PI)
+                ctx.arc(0, -wh / 12 * 2, wh / 24, 0, 2 * Math.PI)
                 ctx.strokeStyle = "red"
                 ctx.stroke()
                 ctx.beginPath()
-                ctx.moveTo(0, -wh / 9 * 2 - wh / 18)
-                ctx.lineTo(0, -wh / 9 * 2 + wh / 18)
-                ctx.moveTo(0, -wh / 9 * 2)
-                ctx.lineTo(0 + wh / 18 / 1.414, -wh / 9 * 2 + wh / 18 / 1.414)
+                ctx.moveTo(0, -wh / 12 * 2 - wh / 24)
+                ctx.lineTo(0, -wh / 12 * 2 + wh / 24)
+                ctx.moveTo(0, -wh / 12 * 2)
+                ctx.lineTo(0 + wh / 24 / 1.414, -wh / 12 * 2 + wh / 24 / 1.414)
                 ctx.strokeStyle = "red"
                 ctx.stroke()
                 ctx.restore()
                 //      大門
                 ctx.save()
                 ctx.beginPath()
-                ctx.arc(-ww / 54, -wh / 18, 10, 0, 2 * Math.PI)
+                ctx.arc(-ww / 54, -wh / 24, 10, 0, 2 * Math.PI)
                 ctx.stroke()
                 ctx.beginPath()
-                ctx.arc(ww / 54, -wh / 18, 10, 0, 2 * Math.PI)
+                ctx.arc(ww / 54, -wh / 24, 10, 0, 2 * Math.PI)
                 ctx.stroke()
                 ctx.beginPath()
-                ctx.moveTo(0, -wh / 9)
+                ctx.moveTo(0, -wh / 12)
                 ctx.lineTo(0, 0)
                 ctx.stroke()
                 ctx.restore()
                 //     側面+上
                 ctx.save()
                 ctx.beginPath()
-                ctx.moveTo(-ww / 6, -wh / 3)
-                ctx.lineTo(-ww / 6 + ww / 9, -wh / 3 - wh / 9)
-                ctx.lineTo(-ww / 6 + ww / 9 + ww / 3, -wh / 3 - wh / 9)
-                ctx.lineTo(-ww / 6 + ww / 3, -wh / 3)
-                ctx.moveTo(-ww / 6 + ww / 3, 0)
-                ctx.lineTo(-ww / 6 + ww / 3 + ww / 9, -wh / 9)
-                ctx.lineTo(-ww / 6 + ww / 3 + ww / 9, -wh / 3 - wh / 9)
+                ctx.moveTo(-ww / 8, -wh / 4)
+                ctx.lineTo(-ww / 8 + ww / 12, -wh / 4 - wh / 12)
+                ctx.lineTo(-ww / 8 + ww / 12 + ww / 4, -wh / 4 - wh / 12)
+                ctx.lineTo(-ww / 8 + ww / 4, -wh / 4)
+                ctx.moveTo(-ww / 8 + ww / 4, 0)
+                ctx.lineTo(-ww / 8 + ww / 4 + ww / 12, -wh / 12)
+                ctx.lineTo(-ww / 8 + ww / 4 + ww / 12, -wh / 4 - wh / 12)
                 ctx.stroke()
                 ctx.restore()
                 //    右開
                 ctx.save()
                 ctx.beginPath()
-                ctx.moveTo(ww / 6, -wh / 3)
-                ctx.lineTo(ww / 6 + ww / 12 * 1.732, -wh / 3 - ww / 12)
-                ctx.lineTo(-ww / 6 + ww / 9 + ww / 3 + ww / 12 * 1.732, -wh / 3 - wh / 9 - ww / 12)
-                ctx.lineTo(-ww / 6 + ww / 9 + ww / 3, -wh / 3 - wh / 9)
+                ctx.moveTo(ww / 8, -wh / 4)
+                ctx.lineTo(ww / 8 + ww / 16 * 1.732, -wh / 4 - ww / 16)
+                ctx.lineTo(-ww / 8 + ww / 12 + ww / 4 + ww / 16 * 1.732, -wh / 4 - wh / 12 - ww / 16)
+                ctx.lineTo(-ww / 8 + ww / 12 + ww / 4, -wh / 4 - wh / 12)
                 ctx.fillStyle = "white"
                 ctx.fill()
                 ctx.stroke()
@@ -330,10 +294,10 @@
 
                 ctx.save
                 ctx.beginPath()
-                ctx.moveTo(-ww / 6, -wh / 3)
-                ctx.lineTo(-ww / 6 - ww / 12 * 1.732, -wh / 3 - ww / 12)
-                ctx.lineTo(-ww / 6 + ww / 9 - ww / 12 * 1.732, -wh / 3 - wh / 9 - ww / 12)
-                ctx.lineTo(-ww / 6 + ww / 9, -wh / 3 - wh / 9)
+                ctx.moveTo(-ww / 8, -wh / 4)
+                ctx.lineTo(-ww / 8 - ww / 16 * 1.732, -wh / 4 - ww / 16)
+                ctx.lineTo(-ww / 8 + ww / 12 - ww / 16 * 1.732, -wh / 4 - wh / 12 - ww / 16)
+                ctx.lineTo(-ww / 8 + ww / 12, -wh / 4 - wh / 12)
 
                 ctx.fillStyle = "white"
                 ctx.fill()
@@ -351,7 +315,7 @@
                 ctx.lineWidth = 2;
                 ctx.fillStyle = "black"
                 ctx.strokeStyle = "#e17055"
-                ctx.strokeText(text, -w / 2, -wh / 2)
+                ctx.strokeText(text, -w / 2, -wh / 8 * 3)
                 ctx.stroke()
                 ctx.restore()
 
