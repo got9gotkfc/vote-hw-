@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>網路大哉問</title>
+    <title>網路投票所</title>
     <style>
         * {
             padding: 0;
@@ -38,13 +38,13 @@
             height: 100%;
             grid-column: 1;
             justify-content: center;
-            align-items: center;
+            font-size: 70px;
             color: #dfe6e9;
         }
 
         #header>nav {
             display: grid;
-            grid-template-columns: 1fr 1fr 1fr;
+            grid-template-columns: repeat( auto-fill,minmax(90px,1fr));
             grid-column: 3;
             align-items: end;
             height: 50%;
@@ -60,8 +60,13 @@
         #content{
             height: calc(100% - 150px);
         }
+        #mycanvas{
+            height: 100%;
+            width: 100%;
+            object-fit: cover;
+        }
         #footer {
-           height: 50px;
+            height: 50px;
         }
     </style>
 </head>
@@ -220,16 +225,16 @@
             ctx.strokeStyle = "block"
             ctx.stroke()
             ctx.restore()
-            talk2(60, "明天聚餐要吃甚麼阿?", 35, true, -ww / 6, -wh / 2 + 10)
-            talk2(120, "我也不知道", 35, false, ww / 6, -wh / 2 + 80)
-            talk2(180, "炸雞?", 35, true, -ww / 6, -wh / 2 + 150)
-            talk2(240, "牛排?", 35, true, -ww / 6, -wh / 2 + 220)
-            talk2(300, "義大利麵?", 35, true, -ww / 6, -wh / 2 + 290)
-            talk2(360, "我都可以耶", 35, false, ww / 6, -wh / 2 + 360)
-            talk2(420, "其他人有想法嗎?", 35, true, -ww / 6, -wh / 2 + 430)
-            talk2(480, "我...也不清楚", 35, false, ww / 6, -wh / 2 + 500)
-            talk2(540, "算了 叫他們都來投票!!", 35, true, -ww / 6, -wh / 2 + 570)
-            talk2(600, "網路投票所", 35, true, -ww / 6, -wh / 2 + 640)
+            talk2(60, "明天聚餐要吃甚麼阿?", wh/25, true, -ww / 6, -wh / 2 + 10)
+            talk2(120, "我也不知道", wh/25, false, ww / 6, -wh / 2 + 80)
+            talk2(180, "炸雞?", wh/25, true, -ww / 6, -wh / 2 + 150)
+            talk2(240, "牛排?", wh/25, true, -ww / 6, -wh / 2 + 220)
+            talk2(300, "義大利麵?", wh/25, true, -ww / 6, -wh / 2 + 290)
+            talk2(360, "我都可以耶", wh/25, false, ww / 6, -wh / 2 + 360)
+            talk2(420, "其他人有想法嗎?", wh/25, true, -ww / 6, -wh / 2 + 430)
+            talk2(480, "我...也不清楚", wh/25, false, ww / 6, -wh / 2 + 500)
+            talk2(540, "算了 叫他們都來投票!!", wh/25, true, -ww / 6, -wh / 2 + 570)
+            talk2(600, "網路投票所", wh/25, true, -ww / 6, -wh / 2 + 640)
 
 
             if (time > 660) {
@@ -322,12 +327,12 @@
                 ctx.save()
                 ctx.translate(ww / 2, h * 10)
                 var text = "網路投票所"
-                ctx.font = '' + 200 + 'px serif';
+                ctx.font = '' + wh/5 + 'px serif';
                 var w = ctx.measureText(text).width
                 ctx.lineWidth = 2;
-                if (h * 10 >= wh) {
+                if (h * 10 >= wh-20) {
                     ctx.beginPath()
-                    talk(-w / 2, -wh + 20, l * 10, 100, 3)
+                    talk(-w / 2, -wh + 20, l * 10, wh/10, 3)
                     ctx.fillStyle = "#6c5ce7"
                     ctx.fill()
                     ctx.stroke()
@@ -337,12 +342,12 @@
                 }
                 ctx.fillStyle = "white"
                 ctx.strokeStyle = "white"
-                ctx.strokeText(text, -w / 2, -wh + 200)
+                ctx.strokeText(text, -w / 2, -wh +wh/5)
                 ctx.stroke()
 
 
                 ctx.restore()
-                if (h * 10 < wh) {
+                if (h * 10 < wh-20) {
                     h++
                 }
             }
