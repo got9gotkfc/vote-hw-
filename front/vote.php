@@ -5,7 +5,23 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../css/header.css">
     <title>開始投票</title>
+    <style>
+    #content form{
+        display: flex;
+        padding: 5px;
+        justify-content: center;
+        flex-direction: column;
+    }
+    form div{
+        padding: 5px;
+    }
+
+    #limit{
+        display: none;
+    }
+    </style>
 </head>
 
 <body>
@@ -36,6 +52,7 @@
 
         </nav>
     </div>
+    <div id="content">
     <form action="../back/count_center.php?id=<?= $_GET['id']; ?>" method="post">
         <?php
         include "../function.php";
@@ -51,18 +68,34 @@
         $options = all('options', $find_options);
         if ($subject['multiple'] == 0) {
             foreach ($options as $key => $value) {
-                echo "<input type='radio' name='options[]' value='{$key}'><label>{$value['option']}</label>";
+                echo "<div><label><input type='radio' name='options[]' value='{$key}'>{$value['option']}</label></div>";
             }
         } else {
+            echo "<div>(最多選{$subject['mulit_limit']}個)</div>";
+            echo "<div id='limit'>{$subject['mulit_limit']}</div>";
             foreach ($options as $key => $value) {
-                echo "<input type='checkbox' name='options[]' value='{$key}'><label>{$value['option']}</label>";
+                
+                echo "<div><label><input type='checkbox' name='options[]' value='{$key}' id='{$key}'>{$value['option']}</label></div>";
             }
         }
         echo " <input type='submit' value='投票'>";
 
         ?>
     </form>
-
+</div>
 </body>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" integrity="sha512-894YE6QWD5I59HgZOGReFYm4dnWc1Qt5NtvYSaNcOP+u1T9qYdvdihz0PPSiiqn/+/3e7Jo4EaG7TubfWGUrMQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<script>
+    $(document).ready(function() {
 
+
+    $('#content div').click(function(){
+        if ($("input[name='options[]']:checked").length > $('#limit').text()) {
+            for (let i = 0; i < 6; i++) {
+                $(`input[value='${i}']`).prop('checked',false);
+            }
+        }
+    })
+    })
+</script>
 </html>

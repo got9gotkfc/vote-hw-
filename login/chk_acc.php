@@ -1,7 +1,7 @@
 <?php
 //檢查帳密是否正確
 include "connect.php";
-$acc=$_POST['acc'];
+$acc=$_POST['chk_acc'];
 
 $sql="SELECT * FROM `users` WHERE `acc`='$acc'";
 

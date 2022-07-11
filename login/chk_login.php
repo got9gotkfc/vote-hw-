@@ -2,9 +2,9 @@
 include "../function.php";
 include "connect.php";
 // 檢查帳密是否正確
-if (isset($_POST['acc'])) {
-    $acc = $_POST['acc'];
-    $pw = md5($_POST['pw']);
+if (isset($_POST['acc_login'])||$_POST['acc_login']!="") {
+    $acc = $_POST['acc_login'];
+    $pw = md5($_POST['pw_login']);
     // if (帳號正確&&密碼正確 ) {
     //     登入成功->會員中心
     // } else {
@@ -22,15 +22,15 @@ if (isset($_POST['acc'])) {
             'user' => $user['acc'],
             'id' => $user['id']
         ];
-        header("location:member_center.php");
+        header("location:../front/member_center.php");
     } else {
-        header("location:login.php?error=帳號或密碼錯誤");
+        header("location:../front/login.php?error=帳號或密碼錯誤");
     }
 } else {
     // 檢查登入了沒 沒登入則跳到login
     if (isset($_SESSION['user'])) {
-        header("location:../vote/vote.php");
+        header("location:../front/vote_center.php");
     } else {
-        header("location:login.php");
+        header("location:../front/login.php?alert=1");
     }
 }

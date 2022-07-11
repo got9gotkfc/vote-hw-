@@ -18,14 +18,14 @@ if ($_POST['pw']!="") {
 }else{
       $sql = "UPDATE `users`
       SET  `name`='{$_POST['name']}',  
-           `gender`='{$_POST['gender']}', 
-           `birthday`='{$_POST['birthday']}',
-           `eduction`='{$_POST['eduction']}', 
-           `addr`='{$_POST['addr']}', 
-           `idcard`='{$_POST['idcard']}', 
-           `e-mail`='{$_POST['e-mail']}',
-           `passnote`='{$_POST['passnote']}',
-           `update_date`='{$_POST['update_date']}'
+            `gender`='{$_POST['gender']}', 
+            `birthday`='{$_POST['birthday']}',
+            `eduction`='{$_POST['eduction']}', 
+            `addr`='{$_POST['addr']}', 
+            `idcard`='{$_POST['idcard']}', 
+            `e-mail`='{$_POST['e-mail']}',
+            `passnote`='{$_POST['passnote']}',
+            `update_date`='{$_POST['update_date']}'
       WHERE  `id`='{$_POST['id']}'";
 }
 

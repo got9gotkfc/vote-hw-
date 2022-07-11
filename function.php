@@ -17,66 +17,60 @@ function chk_array($a)
 
 // 將建好的投票存入資料庫
 // 目標:$sql="INSERT INTO $table('array_keys($arg)') VALUES ('$arg');"
-function  save($table,$arg){
-    $pdo=pdo();
-    $sql="";
-    
+function  save($table, $arg)
+{
+    $pdo = pdo();
+    $sql = "";
+
     // 如果這個subject原本就存在 資料庫會給他一個id 判斷有沒有id 就知道有沒有在資料庫 有在資料庫的話就改為更新
     // 目標:$sql="UPDATE $table SET `$key`='$value' WHERE `id`='$arg['id']'";
-    if(isset($arg['id'])){
+    if (isset($arg['id'])) {
         //update
 
-        foreach($arg as $key => $value){
+        foreach ($arg as $key => $value) {
             // id要放在WHERE之後，先把id以外的值取出來
-            if($key!='id'){
+            if ($key != 'id') {
 
-                $tmp[]="`$key`='$value'";
+                $tmp[] = "`$key`='$value'";
             }
-
         }
         //完成目標sql語法 implode用,隔開
-        $sql.="UPDATE $table SET ".implode(" , " ,$tmp)." WHERE `id`='{$arg['id']}'";
-
-    }else{
+        $sql .= "UPDATE $table SET " . implode(" , ", $tmp) . " WHERE `id`='{$arg['id']}'";
+    } else {
         //insert
-        $cols=implode("`,`",array_keys($arg));
-        $values=implode("','",$arg);
+        $cols = implode("`,`", array_keys($arg));
+        $values = implode("','", $arg);
 
         //建立新增的sql語法
-        $sql="INSERT INTO $table (`$cols`) VALUES('$values')";
-
+        $sql = "INSERT INTO $table (`$cols`) VALUES('$values')";
     }
     //echo $sql;
     return $pdo->exec($sql);
-
 }
 
 // 在資料庫中找到目標
 //目標$sql="SELECT * FROM $table WHERE $arg(條件);
-function search($table,$arg)
+function search($table, $arg)
 {
-    $pdo=pdo();
-    
-    $sql="SELECT * FROM `$table` WHERE ";
-        // 判斷是不是陣列 如果是用foreach串起來
-        if(is_array($arg)){
-    
-            foreach($arg as $key => $value){
-    
-                $tmp[]="`$key`='$value'";
-    
-            }
-    
-            $sql.=implode("AND" ,$tmp);
-    
-        }else{
-    
-            $sql.="$arg";
-    
+    $pdo = pdo();
+
+    $sql = "SELECT * FROM `$table` WHERE ";
+    // 判斷是不是陣列 如果是用foreach串起來
+    if (is_array($arg)) {
+
+        foreach ($arg as $key => $value) {
+
+            $tmp[] = "`$key`='$value'";
         }
-       
+
+        $sql .= implode("AND", $tmp);
+    } else {
+
+        $sql .= "$arg";
+    }
+
     // echo $sql;
-        return $pdo->query($sql)->fetch(PDO::FETCH_ASSOC);
+    return $pdo->query($sql)->fetch(PDO::FETCH_ASSOC);
 }
 
 // 叫出資料庫所有符合條件的資料，可輸入多個$arg
@@ -130,31 +124,29 @@ function all($table, ...$arg)
     //fetchAll()加上常數參數FETCH_ASSOC是為了讓取回的資料陣列中
     //只有欄位名稱,而沒有數字的索引值
     // echo $sql;
-  
+
     return $pdo->query($sql)->fetchAll(PDO::FETCH_ASSOC);
 }
 
 
 
 
-function del($table,$arg){
-    $pdo=pdo();
+function del($table, $arg)
+{
+    $pdo = pdo();
 
-    $sql="DELETE FROM $table WHERE ";
-    if(is_array($arg)){
+    $sql = "DELETE FROM $table WHERE ";
+    if (is_array($arg)) {
 
-        foreach($arg as $key => $value){
+        foreach ($arg as $key => $value) {
 
-            $tmp[]="`$key`='$value'";
-
+            $tmp[] = "`$key`='$value'";
         }
 
-        $sql.=implode(" AND " ,$tmp);
+        $sql .= implode(" AND ", $tmp);
+    } else {
 
-    }else{
-
-        $sql.="$arg";
-
+        $sql .= "$arg";
     }
 
     return $pdo->exec($sql);
@@ -164,9 +156,9 @@ function del($table,$arg){
  * $url - 要導向的檔案路徑及檔名
  */
 
-function  to($url){
-    header("location:".$url);
-
+function  to($url)
+{
+    header("location:" . $url);
 }
 
 
@@ -174,48 +166,43 @@ function  to($url){
  * $sql - SQL語句字串，取出符合SQL語句的全部資料
  */
 
-function c($table,$arg){
-    $pdo=pdo();
-    $sql="SELECT COUNT(*) FROM `$table` WHERE ";
-    if(is_array($arg)){
-    
-        foreach($arg as $key => $value){
+function c($table, $arg)
+{
+    $pdo = pdo();
+    $sql = "SELECT COUNT(*) FROM `$table` WHERE ";
+    if (is_array($arg)) {
 
-            $tmp[]="`$key`='$value'";
+        foreach ($arg as $key => $value) {
 
+            $tmp[] = "`$key`='$value'";
         }
 
-        $sql.=implode("AND" ,$tmp);
+        $sql .= implode("AND", $tmp);
+    } else {
 
-    }else{
-
-        $sql.="$arg";
-
+        $sql .= "$arg";
     }
 
     return  $pdo->query($sql)->fetchColumn();
 }
 // 找到符合條件且id最大的那一筆資料
-function max_id_search($table,$arg){
-    $pdo=pdo();
-    $sql="SELECT MAX(id) FROM `$table` WHERE ";
-    if(is_array($arg)){
-    
-        foreach($arg as $key => $value){
+function max_id_search($table, $arg)
+{
+    $pdo = pdo();
+    $sql = "SELECT MAX(id) FROM `$table` WHERE ";
+    if (is_array($arg)) {
 
-            $tmp[]="`$key`='$value'";
+        foreach ($arg as $key => $value) {
 
+            $tmp[] = "`$key`='$value'";
         }
 
-        $sql.=implode("AND" ,$tmp);
+        $sql .= implode("AND", $tmp);
+    } else {
 
-    }else{
-
-        $sql.="$arg";
-
+        $sql .= "$arg";
     }
-    $id=$pdo->query($sql)->fetchColumn();
-    
-     return search($table,"`id`='$id'");
+    $id = $pdo->query($sql)->fetchColumn();
+
+    return search($table, "`id`='$id'");
 }
-?>

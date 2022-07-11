@@ -3,6 +3,10 @@ date_default_timezone_set('Asia/Taipei');
 include_once "../function.php";
 chk_array($_POST);
 // 抓從表單傳來的值
+if ($_POST['subject']=="") {
+    echo "<h1>無設定主題</h1>";
+    echo  "<a href='../front/creatvote.php'>回上一頁</a>";
+}else{
 $subject = $_POST['subject'];
 // 如果沒輸入結束時間則以start+7天代替
 if ($_POST['end'] == "") {
@@ -15,6 +19,7 @@ $add_subject = [
     'subject' => $subject,
     'type_id'=>$_POST['type'],
     'multiple' => $_POST['multiple'],
+    'mulit_limit'=>$_POST['mulit_limit'],
     'start' => date("Y-m-d h:i"),
     'end' => $end
 ];
@@ -37,11 +42,9 @@ if (strtotime($chk_subject['end']) > strtotime(date("Y-m-d H:i:s"))) {
             ];
         }
         save("options", $add_option);
-        if($_SESSION['id']<3){
-            to('./vote_center.php');
-            }else{
-             to('../front/vote_center.php');
-            }
+            to('../front/vote_center.php');
+            
         
     }
+}
 }

@@ -6,57 +6,9 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>網路投票所</title>
+    <link rel="stylesheet" href="./css/header.css">
     <style>
-        * {
-            padding: 0;
-            margin: 0;
-            box-sizing: border-box;
-        }
 
-        body {
-            height: 100%;
-            display: flex;
-            justify-content: center;
-            flex-direction: column;
-
-        }
-
-        #header {
-            width: 100%;
-            height: 100px;
-            margin: auto;
-            display: grid;
-            border: 1px solid #0984e3;
-            grid-template-columns: 1fr 1fr 1fr;
-            align-items: end;
-            background-color: #74b9ff;
-
-        }
-
-        #header>h1 {
-            display: grid;
-            height: 100%;
-            grid-column: 1;
-            justify-content: center;
-            font-size: 70px;
-            color: #dfe6e9;
-        }
-
-        #header>nav {
-            display: grid;
-            grid-template-columns: repeat( auto-fill,minmax(90px,1fr));
-            grid-column: 3;
-            align-items: end;
-            height: 50%;
-
-        }
-
-        nav>a {
-            grid-column: auto;
-            text-align: center;
-            text-decoration: none;
-
-        }
         #content{
             height: calc(100% - 150px);
         }
@@ -73,7 +25,7 @@
 
 <body>
     <div id="header">
-        <h1>網路大哉問</h1>
+        <h1>網路投票所</h1>
         <nav>
 
             <a href="index.php">Home</a>
@@ -88,13 +40,13 @@
 
             if (isset($_SESSION['user'])) {
             ?>
-                <a href="./login/member_center.php">會員中心</a>
+                <a href="./front/member_center.php">會員中心</a>
                 <a href="./login/logout.php">登出</a>
 
             <?php
             } else {
             ?>
-                <a href="./login/login.php">登入</a>
+                <a href="./front/login.php">登入</a>
             <?php
             }
             ?>
@@ -313,9 +265,10 @@
                 ctx.restore()
 
                 ctx.save()
+                ctx.beginPath()
                 ctx.translate(ww / 2, h * 10)
                 var text = "?"
-                ctx.font = '' + 300 + 'px serif';
+                ctx.font = '' + wh/3 + 'px serif';
                 var w = ctx.measureText(text).width
                 ctx.lineWidth = 2;
                 ctx.fillStyle = "black"
