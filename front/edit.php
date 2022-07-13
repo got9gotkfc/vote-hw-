@@ -5,15 +5,10 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="../css/header.css">
+    <link rel="stylesheet" href="../css/body.css">
     <title>編輯資料</title>
     <style>
-        #content{
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            flex-direction: column;
-        }
+
         table {
             width: 500px;
             height: 540px;
@@ -49,14 +44,15 @@
 
 <body>
     <div id="header">
-        <h1>編輯資料</h1>
+        <div>編輯資料</div>
         <?php
         include "../login/connect.php";
         $sql = "SELECT * FROM users WHERE `id`='{$_SESSION['id']}'";
         $user = $pdo->query($sql)->fetch();
         ?>
         <nav>
-            <a href="../index.php">Home</a>
+            <a href="../index.php">首頁</a>
+            <a href="./member_center.php">會員中心</a>
             <?php
             if (isset($_SESSION)) {
                 if ($_SESSION['id'] <= 3) {
@@ -147,6 +143,9 @@
                 <input type="reset" value="重置">
             </div>
         </form>
+    </div>
+    <div id="footer">
+        <p>版權為XXX所有，電話09XX-XXXXXX</p>
     </div>
 </body>
 

@@ -5,53 +5,70 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="../css/header.css">
+    <link rel="stylesheet" href="../css/body.css">
     <title>會員中心</title>
-
     <style>
-        .remove {
-            color: #eee;
+        #content>#ask {
+            padding:0 10px;
+            font-size: 25px;
+            letter-spacing:3px;
+            grid-column: 5/12;
+            grid-row: 2/3;
+            border-radius: 10px;
+            overflow: hidden;
+            background: #6c5ce7;
+            border-top: 2px solid #6c5ce7;
+            animation: expand 2s forwards;
+            color:#dfe6e9;
         }
+        @keyframes expand {
 
-        .remove:hover {
-            color: red;
+            0% {
+                width: 0;
+                height: 0;
+            }
+            50% {
+                width: 100%;
+                height: 0;
+            }
+
+            100% {
+                width: 100%;
+                height: 100%;
+            }
         }
         
-        #ask{
-            color: #d63031;
-            font-size: 50px;
+
+
+        #content>table {
+            grid-column: 4/13;
+            grid-row: 4/13;
         }
-        table{
-            width: 500px;
-            height: 540px;
-            border: 1px solid #b2bec3;
-            box-shadow: 3px 3px 7px rgba(0, 0, 0, 0.7);
+
+        .odd {
+            border: 1px solid #fd79a8;
+            background-color: #fd79a8;
+            color: white;
         }
-        tr{
-            width: 100%;
-            height: calc(100% / 9);
-            
+
+        .even {
+            border: 1px solid #e84393;
+            background-color: #e84393;
+            color: white;
         }
-        td{
-            font-size: 30px;
-            border: 1px solid #b2bec3;
-        }
-        #list{
-            font-size: 30px;
-        }
-        #list > a{
-            width:100px;
-            height:40px;
-            
+
+        #content>#list {
+            grid-column: 8/9;
+            grid-row: 14/15;
         }
     </style>
 </head>
 
 <body>
     <div id="header">
-        <h1>會員中心</h1>
+        <div>會員中心</div>
         <nav>
-            <a href="../index.php">Home</a>
+            <a href="../index.php">首頁</a>
             <?php
             include "../login/connect.php";
             if (isset($_SESSION)) {
@@ -79,7 +96,7 @@
     $user = $pdo->query($sql)->fetch(PDO::FETCH_ASSOC);
     ?>
     <div id="content">
-        <div id="ask">歡迎<?= $user['name']; ?>,祝你有美好的一天</div>
+        <div id="ask">歡迎<?= $user['name']; ?>，祝你有美好的一天~~</div>
         <table>
             <?php
             echo "<tr><td>帳號</td><td>{$user['acc']}</td></tr>";
@@ -90,7 +107,7 @@
             } else {
                 $gender = '女';
             }
-            echo "<tr><td>性別</td><td>{$gender}</td></tr>";
+            echo "<tr><td>性別</td><td id='gender'>{$gender}</td></tr>";
             echo "<tr><td>生日</td><td>{$user['birthday']}</td></tr>";
             echo "<tr><td>畢業學校</td><td>{$user['eduction']}</td></tr>";
             echo "<tr><td>地址</td><td>{$user['addr']}</td></tr>";
@@ -103,20 +120,28 @@
         <div id="list">
             <form action="./edit.php" method="post">
                 <input type="hidden" name="id" value="<?= $user['id']; ?>">
-                <input type="submit" value="更新"style="width:100px;height:40px;font-size:30px">
-                <?php
-            if ($_SESSION['id'] <= 3) {
-                echo   " <a class='remove' href=" . "javascript:if(confirm('確實要刪除嗎?'))location='../login/remove.php?id={$user['id']}'" . ">刪除</a>";
-            }
-            ?>
+                <input class="btn_update" type="submit" value="更新">
             </form>
-            
+
 
         </div>
     </div>
+    <div id="footer">
+        <p>版權為XXX所有，電話09XX-XXXXXX</p>
+    </div>
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
 
+    <script>
+        $(document).ready(function() {
+            $('tr:odd').addClass('odd');
+            $('tr:even').addClass('even');
 
-
+            if ($('#gender').text() == "男") {
+                $('.odd').css('background-color', '#00cec9');
+                $('.even').css('background-color', '#00b894');
+            }
+        });
+    </script>
 
 </body>
 

@@ -6,71 +6,16 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>會員登入</title>
-    <link rel="stylesheet" href="../css/header.css">
-    <style>
-        #content {
-            width: 40%;
-            height: 60%;
-        }
+    <link rel="stylesheet" href="../css/body.css">
 
-        #login {
-            width: 100%;
-            border: 1px solid #636e72;
-            display: flex;
-            justify-content: center;
-            flex-direction: column;
-            padding: 10px;
-            align-items: center;
-            text-align: center;
-            color: #dfe6e9;
-            background-color: #0984e3;
-            border-radius: 10px;
-            /* filter: hue-rotate(20deg); */
-        }
 
-        form {
-            width: 100%;
-            display: flex;
-            justify-content: center;
-            flex-direction: column;
-            padding: 10px;
-            font-size: 30px;
-            align-items: center;
-        }
-
-        form input {
-            font-size: 30px;
-        }
-
-        table tr #btn {
-            /* display: flex; */
-            width: 100%;
-
-            justify-content: center;
-        }
-
-        #register_form {
-            display: none;
-            border: 1px solid #636e72;
-            padding: 2px;
-        }
-
-        #fg {
-            display: none;
-            border: 1px solid #636e72;
-            padding: 2px;
-        }
-        #alert{
-            display: none;
-        }
-    </style>
 </head>
 
 <body>
 
 
     <div id="header">
-        <h1>登入</h1>
+        <div>登入</div>
         <nav>
 
             <a href="index.php">Home</a>
@@ -128,6 +73,9 @@
         include "./register.php";
         include "./forgot.php";
         ?>
+    </div>
+    <div id="footer">
+        <p>版權為XXX所有，電話09XX-XXXXXX</p>
     </div>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" integrity="sha512-894YE6QWD5I59HgZOGReFYm4dnWc1Qt5NtvYSaNcOP+u1T9qYdvdihz0PPSiiqn/+/3e7Jo4EaG7TubfWGUrMQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     <script>

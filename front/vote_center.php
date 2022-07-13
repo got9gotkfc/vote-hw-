@@ -5,18 +5,22 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="../css/header.css">
+    <link rel="stylesheet" href="../css/body.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     <title>投票中心</title>
     <style>
-
-        #voting_btn {
-            font-size: large;
-            font-weight: bold;
+        
+        #content{
+            width: 80%;
+            display: block;
         }
-
-        #voted_btn {
-            font-size: large;
+        #voting_btn {
             font-weight: bold;
+            margin-bottom: 10px;
+        }
+        #voted_btn {
+            font-weight: bold;
+            margin-bottom: 10px;
         }
         table{
             width: 100%;
@@ -118,14 +122,32 @@
             border: 1px solid #636e72;
 
         }
+
+        .card{
+            display: inline-block;
+            border: solid black 2px;
+            margin: 5px; 
+        }
+        
+        .card:hover{
+            box-shadow: 5px 10px;
+            transform:  translateY(-5px);
+        }
+
+        .btnResult{
+            border: none;
+            background: #D2E9FF;
+            padding: 5px;
+            font-size: 20px;
+        }
     </style>
 </head>
 
 <body>
     <div id="header">
-        <h1>投票中心</h1>
+        <div>投票中心</div>
         <nav>
-            <a href="../index.php">Home</a>
+            <a href="../index.php">首頁</a>
             <a href="./creatvote.php">創建投票</a>
 
             <?php
@@ -144,25 +166,17 @@
         </nav>
     </div>
     <div id="content">
+
         <button id="voting_btn">正在進行的投票</button>
         <button id="voted_btn">參與過的投票</button>
-        <table id="voting">
-            <tr>
-                <th colspan="5">正在進行的投票</th>
-
-            </tr>
-            <tr>
-                <td class='sub'>投票主題</td>
-                <td class='end'>截止時間</td>
-                <td class='typ'>類型</td>
-                <td class='tal'>投票人數</td>
-                <td class='do'>執行</td>
-            </tr>
+        <div id="voting">
+            <h3 colspan="5">正在進行的投票</h3>
             <?php
             include "../function.php";
             $subjects = all('subjects');
             $join = [];
             // chk_array($subjects);
+            $NoVotingSubject=true;
             foreach ($subjects as $key => $subject) {
                 $a = $key + 1;
                 // 判斷有沒有參與過投票
@@ -173,69 +187,72 @@
                 $log = c('log', $find_log);
                 $type = all('type');
                 if ($log == 0 && strtotime($subject['end']) > strtotime(date("Y-m-d H:i:s"))) {
-                    echo "<tr id='now_vote$a'>";
-                    echo "<td class='sub'>{$subject['subject']}</td>";
-                    echo "<td class='end'>{$subject['end']}</td>";
-                    foreach ($type as $key => $typ) {
-                        if ($typ['id'] == $subject['type_id']) {
-                            echo "<td class='typ'>{$typ['name']}</td>";
-                        }
+                    $a=$key+1;
+                    $NoVotingSubject=false;
+                    echo "<div class='card' style='width: 18rem;'>";
+                    echo "<div class='card-body'>";
+                    echo "<h4 class='card-title'>{$subject['subject']}</h5>";
+                    echo "<h6 class='card-text'>截止時間 : {$subject['end']}</h6>";
+                    echo "<h6 class='card-text'>投票人數 : {$subject['total']}</h6>";
+                    if (strtotime($subject['end']) < strtotime(date("Y-m-d H:i:s"))) {
+                        echo "<h6 class='card-text'>類型 : 已截止</h6>";
+                    } else {
+                        echo "<h6 class='card-text'>類型 : 已投過</h6>";
                     }
-                    echo "<td class='tal'>{$subject['total']}</td>";
-                    echo "<td class='do'><a href='./vote.php?id={$subject['id']}'>開始投票</a></td>";
-                    echo "</tr>";
+                    echo "<a href='./vote.php?id={$subject['id']}' class='card-link'>開始投票</a>";
+                    echo "</div>";
+                    echo "</div>";
                 }
                 if (search('log', $find_log)!="") {
                 array_push($join, search('log', $find_log));
                 }
             
             }
+            if($NoVotingSubject){
+                echo "<h6>無</h6>";
+            }
             ?>
-        </table>
+        </div>
 
-        <table id="voted">
-            <tr>
-                <th colspan="5">參與過的投票</th>
-            </tr>
-            <tr>
-                <td class='sub'>投票主題</td>
-                <td class='end'>截止時間</td>
-                <td class='typ'>類型</td>
-                <td class='tal'>投票人數</td>
-                <td class='do'>執行</td>
-            </tr>
+        <div id="voted">
+            <h3 colspan="5">參與過的投票</p3><br>
             <?php
+            $NoVotedSubject=true;
             foreach ($subjects as $key => $subject) {
                 foreach ($join as $key => $value) {
                     if ($value['subject_id'] == $subject['id']) {
                         if ($log > 0 || strtotime($subject['end']) < strtotime(date("Y-m-d H:i:s"))) {
                             $a=$key+1;
-                            echo "<tr id='vote_end$a'>";
-                            echo "<td id='sub' class='sub'>{$subject['subject']}</td>";
+                            $NoVotedSubject=false;
+                            echo "<div class='card' style='width: 18rem;'>";
+                            echo "<div class='card-body'>";
+                            echo "<h4 class='card-title'>{$subject['subject']}</h4>";
+                            echo "<h6 class='card-text'>截止時間 : {$subject['end']}</h6>";
+                            echo "<h6 class='card-text'>投票人數 : {$subject['total']}</h6>";
                             if (strtotime($subject['end']) < strtotime(date("Y-m-d H:i:s"))) {
-                                echo "<td class='end'>已截止</td>";
+                                echo "<h6 class='card-text'>類型 : 已截止</h6>";
                             } else {
-                                echo "<td class='end'>已投過</td>";
+                                echo "<h6 class='card-text'>類型 : 已投過</h6>";
                             }
-                            foreach ($type as $key => $typ) {
-                                if ($typ['id'] == $subject['type_id']) {
-                                    echo "<td class='typ'>{$typ['name']}</td>";
-                                }
-                            }
-                            echo "<td id='count' class='tal'>{$subject['total']}</td>";
-                            echo "<td class='do'><button type='button' id='open_result$a'>查看結果</button></td>";
-                            echo "</tr>";
-                            echo "<tr><th colspan='5'>";
-                            include "../back/result.php";
-                            echo "</th></tr>";
+                            echo "<button class='btnResult' type='button' id='open_result$a'>查看結果</button>";
+                            echo "</div>";
+                            echo "</div>";
                         }
                     }
                 }
             }
+            if($NoVotedSubject){
+                echo "<h6>無</h6>";
+            }
             ?>
-        </table>
+        </div>
     </div>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" integrity="sha512-894YE6QWD5I59HgZOGReFYm4dnWc1Qt5NtvYSaNcOP+u1T9qYdvdihz0PPSiiqn/+/3e7Jo4EaG7TubfWGUrMQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <div id="footer">
+        <p>版權為XXX所有，電話09XX-XXXXXX</p>
+    </div>
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.14.7/dist/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
     <script>
         $(document).ready(function() {
 

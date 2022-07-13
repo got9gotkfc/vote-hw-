@@ -6,29 +6,20 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>網路投票所</title>
-    <link rel="stylesheet" href="./css/header.css">
+    <link rel="stylesheet" href="./css/body.css">
     <style>
-
-        #content{
-            height: calc(100% - 150px);
-        }
-        #mycanvas{
-            height: 100%;
-            width: 100%;
-            object-fit: cover;
-        }
-        #footer {
-            height: 50px;
-        }
+    #content>#mycanvas{
+        grid-column: 1/16;
+        grid-row: 1/30;
+    }
     </style>
 </head>
 
 <body>
     <div id="header">
-        <h1>網路投票所</h1>
+        <div>網路投票所</div>
         <nav>
-
-            <a href="index.php">Home</a>
+            <a href="index.php">首頁</a>
             <?php
             include "./login/connect.php";
             if (isset($_SESSION)) {
@@ -56,16 +47,17 @@
     <canvas id="mycanvas"></canvas>
     </div>
     <div id="footer">
-        footer
+        <p>版權為XXX所有，電話09XX-XXXXXX</p>
     </div>
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
     <script>
         var canvas = document.getElementById("mycanvas")
         var ctx = canvas.getContext("2d")
         var time = 0
 
         function initCanvas() {
-            ww = canvas.width = window.innerWidth
-            wh = canvas.height = window.innerHeight - 200
+            ww = canvas.width = $('#content').width()
+            wh = canvas.height = $('#content').height()
 
         }
 
@@ -286,7 +278,7 @@
                 if (h * 10 >= wh-20) {
                     ctx.beginPath()
                     talk(-w / 2, -wh + 20, l * 10, wh/10, 3)
-                    ctx.fillStyle = "#6c5ce7"
+                    ctx.fillStyle = "#a29bfe"
                     ctx.fill()
                     ctx.stroke()
                     if (l * 10 < w) {

@@ -5,18 +5,10 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="../css/header.css">
+    <link rel="stylesheet" href="../css/body.css">
     <title>開始投票</title>
     <style>
-    #content form{
-        display: flex;
-        padding: 5px;
-        justify-content: center;
-        flex-direction: column;
-    }
-    form div{
-        padding: 5px;
-    }
+    
 
     #limit{
         display: none;
@@ -26,8 +18,8 @@
 
 <body>
     <div id="header">
-        <h1>開始投票</h1>
-        <nav> <a href="../index.php">Home</a>
+        <div>開始投票</div>
+        <nav> <a href="../index.php">首頁</a>
             <?php
             include "../login/connect.php";
 
@@ -83,6 +75,9 @@
         ?>
     </form>
 </div>
+<div id="footer">
+        <p>版權為XXX所有，電話09XX-XXXXXX</p>
+    </div>
 </body>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" integrity="sha512-894YE6QWD5I59HgZOGReFYm4dnWc1Qt5NtvYSaNcOP+u1T9qYdvdihz0PPSiiqn/+/3e7Jo4EaG7TubfWGUrMQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 <script>
