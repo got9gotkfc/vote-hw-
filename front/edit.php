@@ -8,37 +8,42 @@
     <link rel="stylesheet" href="../css/body.css">
     <title>編輯資料</title>
     <style>
-
-        table {
-            width: 500px;
-            height: 540px;
-            border: 1px solid #b2bec3;
-            box-shadow: 3px 3px 7px rgba(0, 0, 0, 0.7);
+        #content>form{
+            font-size: 20px;
+            display: grid;
+            grid-template-columns: repeat(8,1fr);
+            grid-template-rows: repeat(14,1fr);
+            grid-column: 6/13;
+            grid-row: 2/16;
+        }
+        form>table{
+            grid-column: 1/9;
+            grid-row: 1/10;
+        }
+        
+        .odd {
+            background-color: #636e72;
+            color: white;
         }
 
-        tr {
-            width: 100%;
-            height: calc(100% / 9);
+        .even {
+            
+            background-color: #2d3436;
+            color: white;
+        }
+        #update_date{
+            display: none;
+        }
+        form>#list{
+            grid-column: 4/7;
+            grid-row: 12/13;
+        }
+        #list>input{
+            padding: 0 10px;
+        }
+        
+      
 
-        }
-
-        td {
-            font-size: 30px;
-            border: 1px solid #b2bec3;
-        }
-        td > input{
-            font-size: 25px;
-        }
-
-        #list {
-            font-size: 30px;
-        }
-
-        #list>input {
-            width: 100px;
-            height: 40px;
-            font-size: 30px;
-        }
     </style>
 </head>
 
@@ -56,9 +61,8 @@
             <?php
             if (isset($_SESSION)) {
                 if ($_SESSION['id'] <= 3) {
-                    echo   "<a href='../back/vote_center.php'>投票中心</a>";
-                } else {
                     echo   "<a href='../front/vote_center.php'>投票中心</a>";
+                    echo   "<a href='../back.php'>後台中心</a>";
                 }
             }
             if (isset($_SESSION['user'])) {
@@ -132,11 +136,11 @@
                     <td>密碼提示</td>
                     <td><input type="text" name="passnote" value="<?= $user['passnote']; ?>"></td>
                 </tr>
-                <tr>
-                    <td><input type="hidden" name="update_date" value="<?= date('Y-m-d H:i:s'); ?>"></td>
+                <tr id="update_date">
+                    <td><input type="hidden" name="update_date" value="<?= date('Y-m-d H:i:s'); ?>" ></td>
                 </tr>
             </table>
-            <br>
+         
             <div id="list">
                 <input type="hidden" name="id" value="<?= $user['id']; ?>">
                 <input type="submit" value="更新">
@@ -147,6 +151,14 @@
     <div id="footer">
         <p>版權為XXX所有，電話09XX-XXXXXX</p>
     </div>
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+
+    <script>
+        $(document).ready(function() {
+            $('tr:odd').addClass('odd');
+            $('tr:even').addClass('even');
+        });
+    </script>
 </body>
 
 </html>

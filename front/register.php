@@ -50,8 +50,8 @@
                 <td><input type="hidden" name="reg_date" value="<?= date('Y-m-d H:i:s'); ?>"></td>
             <tr>
             <tr>
-                <td><input type="submit" value="註冊" id="reg"></td>
-                <td><input type="reset" value="重置"></td>
+                <td colspan="2"><input type="submit" value="註冊" id="reg">
+                <input type="reset" value="重置"></td>
             </tr>
         </table>
     </form>

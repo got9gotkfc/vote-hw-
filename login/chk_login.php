@@ -2,6 +2,7 @@
 include "../function.php";
 include "connect.php";
 // 檢查帳密是否正確
+
 if (isset($_POST['acc_login'])||$_POST['acc_login']!="") {
     $acc = $_POST['acc_login'];
     $pw = md5($_POST['pw_login']);

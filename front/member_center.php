@@ -12,22 +12,25 @@
             padding:0 10px;
             font-size: 25px;
             letter-spacing:3px;
-            grid-column: 5/12;
+            grid-column: 6/13;
             grid-row: 2/3;
             border-radius: 10px;
             overflow: hidden;
             background: #6c5ce7;
             border-top: 2px solid #6c5ce7;
-            animation: expand 2s forwards;
+            animation: expand 1s forwards ease-in-out;
             color:#dfe6e9;
+            
         }
         @keyframes expand {
 
             0% {
+                /* margin-left: 100%; */
                 width: 0;
                 height: 0;
             }
             50% {
+                /* margin-left: 0%; */
                 width: 100%;
                 height: 0;
             }
@@ -41,7 +44,8 @@
 
 
         #content>table {
-            grid-column: 4/13;
+            font-size: 20px;
+            grid-column: 5/14;
             grid-row: 4/13;
         }
 
@@ -58,8 +62,11 @@
         }
 
         #content>#list {
-            grid-column: 8/9;
+            grid-column: 9/10;
             grid-row: 14/15;
+        }
+        #update{
+            font-size: 20px;
         }
     </style>
 </head>
@@ -73,10 +80,11 @@
             include "../login/connect.php";
             if (isset($_SESSION)) {
                 if ($_SESSION['id'] <= 3) {
-                    echo   "<a href='../back/vote_center.php'>投票中心</a>";
-                } else {
                     echo   "<a href='../front/vote_center.php'>投票中心</a>";
-                }
+                    echo   "<a href='../back.php'>後台中心</a>";
+                }else{
+                echo   "<a href='../front/vote_center.php'>投票中心</a>";
+            }
             }
             if (isset($_SESSION['user'])) {
             ?>
@@ -120,7 +128,7 @@
         <div id="list">
             <form action="./edit.php" method="post">
                 <input type="hidden" name="id" value="<?= $user['id']; ?>">
-                <input class="btn_update" type="submit" value="更新">
+                <input class="btn_update" type="submit" value="更新" id="update">
             </form>
 
 

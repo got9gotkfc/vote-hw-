@@ -32,4 +32,4 @@ if ($_POST['pw']!="") {
 
 $pdo->exec($sql);
 
-header('location:member_center.php');
+header('location:../front/member_center.php');
