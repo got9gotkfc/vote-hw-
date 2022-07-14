@@ -40,8 +40,6 @@
                 height: 100%;
             }
         }
-        
-
 
         #content>table {
             font-size: 20px;

@@ -131,22 +131,6 @@
             font-size: 20px;
         }
 
-        #hit {
-            width: 90%;
-            height: 0;
-            overflow: hidden;
-            text-align: center;
-            justify-content: center;
-            margin: 0 auto;
-            border-radius: 0 0 5px 5px;
-            font-size: 20px;
-            color: white;
-            background-color: #d63031;
-            grid-column: 7/12;
-            grid-row: 13/14;
-            animation: expand 1s forwards;
-            animation-delay: 1s;
-        }
     </style>
 </head>
 
@@ -213,7 +197,7 @@
         </div>
         <?php
         if (isset($_POST['chk_acc']) && $_POST['chk_acc'] != "") {
-            echo "<div id='hit'>";
+            echo "<div id='alert'>";
             include "../login/chk_acc.php";
             echo "</div>";
         }
