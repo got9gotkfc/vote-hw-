@@ -128,7 +128,7 @@
             if (isset($_SESSION)) {
                 if ($_SESSION['id'] <= 3) {
                     echo   "<a href='../front/vote_center.php'>投票中心</a>";
-                    echo   "<a href='../back.php'>後台中心</a>";
+                    echo   "<a href='../back/back.php'>後台中心</a>";
                 } else {
                     echo   "<a href='../front/vote_center.php'>投票中心</a>";
                 }

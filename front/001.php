@@ -1,11 +1,14 @@
-<meta charset="UTF-8">
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="../css/body.css">
     <title>投票中心</title>
     <style>
-
-#voting_btn {
+        #voting_btn {
             grid-column: 2/4;
             grid-row: 2/3;
             font-weight: bold;
@@ -18,51 +21,67 @@
             font-weight: bold;
             margin-bottom: 10px;
         }
-        #voting{
-            grid-column: 2/20;
-            grid-row: 3/8;
-        }
-        #voted{
-            grid-column: 2/20;
-            grid-row: 8/16;
+
+        #ving {
+            grid-column: 6/13;
+            grid-row: 3/4;
         }
 
-
-        table{
-            width: 100%;
-        }
-        table th{
-            width: 100%;
-            justify-content: center;
-        }
-        table tr {
-            display: flex;
-            padding: 5px ;
-            width: 100%;
-        }
-        table tr .sub{
-            width: 50%;
-        }
-        table tr .end{
-            width: 20%;
-        }
-        table tr .typ{
-            width: 10%;
-        }
-        table tr .tal{
-            width: 10%;
+        #ving0 {
+            grid-column: 2/6;
+            grid-row: 6/12;
+            border-radius: 5px;
+            border: 1px solid #74b9ff;
+            border-left: 2px solid black;
+            border-bottom: 2px solid black;
+            background-color: #74b9ff;
+            color: white;
         }
 
-        table tr .do{
-            width: 10%;
+        #ving1 {
+            grid-column: 7/12;
+            grid-row: 5/13;
+            border-radius: 5px;
+            background-color: #74b9ff;
+            color: white;
         }
 
+        #ving2 {
+            grid-column: 13/16;
+            grid-row: 6/12;
+            border-radius: 5px;
+            border: 1px solid #74b9ff;
+            border-right: 2px solid black;
+            border-bottom: 2px solid black;
+            background-color: #74b9ff;
+            color: white;
+        }
 
+        #prev {
+            text-align: center;
+            grid-column: 1/2;
+            grid-row: 8/10;
+            border-color: transparent #0984e3 transparent transparent;
+            border-style: solid solid solid solid;
+            border-width: 40px;
+        }
 
+        #next {
+            text-align: center;
+            grid-column: 16/17;
+            grid-row: 8/10;
+            border-color: transparent transparent transparent #0984e3;
+            border-style: solid solid solid solid;
+            border-width: 40px;
+        }
+        #ved {
+            grid-column: 6/13;
+            grid-row: 3/4;
+        }
         .result {
             width: 100%;
-            border-top : 1px solid #636e72;
-            border-bottom : 1px solid #636e72;
+            border-top: 1px solid #636e72;
+            border-bottom: 1px solid #636e72;
 
         }
 
@@ -132,7 +151,7 @@
 </head>
 
 <body>
-<div id="header">
+    <div id="header">
         <div>投票中心</div>
         <nav>
             <a href="../index.php">首頁</a>
@@ -160,98 +179,92 @@
         </nav>
     </div>
     <div id="content">
-        <button id="voting_btn">正在進行的投票</button>
-        <button id="voted_btn">參與過的投票</button>
-        <table id="voting">
-            <tr>
-                <th colspan="5">正在進行的投票</th>
+        <a href="./vote_center.php?table=1" id="voting_btn">正在進行的投票</a>
+        <a href="./vote_center.php?table=2" id="voted_btn">參與過的投票</a>
 
-            </tr>
-            <tr>
-                <td class='sub'>投票主題</td>
-                <td class='end'>截止時間</td>
-                <td class='typ'>類型</td>
-                <td class='tal'>投票人數</td>
-                <td class='do'>執行</td>
-            </tr>
-            <?php
-            include "../function.php";
-            $subjects = all('subjects');
-            $join = [];
-            // chk_array($subjects);
-            foreach ($subjects as $key => $subject) {
-                $a = $key + 1;
-                // 判斷有沒有參與過投票
-                $find_log = [
-                    'user_id' => $_SESSION['id'],
-                    'subject_id' => $subject['id']
-                ];
-                $log = c('log', $find_log);
-                $type = all('type');
-                if ($log == 0 && strtotime($subject['end']) > strtotime(date("Y-m-d H:i:s"))) {
-                    echo "<tr id='now_vote$a'>";
-                    echo "<td class='sub'>{$subject['subject']}</td>";
-                    echo "<td class='end'>{$subject['end']}</td>";
-                    foreach ($type as $key => $typ) {
-                        if ($typ['id'] == $subject['type_id']) {
-                            echo "<td class='typ'>{$typ['name']}</td>";
+        <div id="prev"></div>
+        <div id="next"></div>
+        <?php
+        include_once "../function.php";
+        $subjects = all('subjects');
+        $join = [];
+        $ving = [];
+        // chk_array($_SESSION);
+        
+        if (isset($_GET['table'])) {
+            switch ($_GET['table']) {
+                case '1':
+                    echo "<div id='ving'>正在進行的投票</div>";
+                    foreach ($subjects as $key => $subject) {
+                        // 判斷有沒有參與過投票
+                        $find_log = [
+                            'user_id' => $_SESSION['id'],
+                            'subject_id' => $subject['id'],
+                        ];
+                        $log = c('log', $find_log);
+                        $type = all('type');
+                        if ($log == 0 && strtotime($subject['end']) > strtotime(date("Y-m-d H:i:s"))) {
+                            $NoVotingSubject = false;
+                            array_push($ving, $subject);
+                        }
+                        if (search('log', $find_log) != "") {
+                            array_push($join, search('log', $find_log));
                         }
                     }
-                    echo "<td class='tal'>{$subject['total']}</td>";
-                    echo "<td class='do'><a href='./vote.php?id={$subject['id']}'>開始投票</a></td>";
-                    echo "</tr>";
-                }
-                if (search('log', $find_log)!="") {
-                array_push($join, search('log', $find_log));
-                }
+                    foreach ($ving as $key => $subject) {
+                        echo "<div id='ving{$key}'>";
+                        echo "<div >{$subject['subject']}</div>";
+                        echo "<div >截止時間 : {$subject['end']}</div>";
+                        echo "<div >投票人數 : {$subject['total']}</hdiv>";
+                        foreach ($type as $key => $typ) {
+                            if ($typ['id'] == $subject['type_id']) {
+                                echo "<div class='typ'>類型:{$typ['name']}</div>";
+                            }
+                        }
+                        echo "<a href='./vote.php?id={$subject['id']}' class='card-link'>開始投票</a>";
+                        echo "</div>";
+                    }
+                    break;
 
-            }
-            ?>
-        </table>
-
-        <table id="voted">
-            <tr>
-                <th colspan="5">參與過的投票</th>
-            </tr>
-            <tr>
-                <td class='sub'>投票主題</td>
-                <td class='end'>截止時間</td>
-                <td class='typ'>類型</td>
-                <td class='tal'>投票人數</td>
-                <td class='do'>執行</td>
-            </tr>
-            <?php
+                case '2':
+            echo "<div id='ved'>參與過的投票</div>";
+                           echo"<table id='ved_table'>";
+                            echo"<tr>";
+                            echo"<td>投票主題</td>";
+                            echo"<td>投票人數</td>";
+                            echo"<td>類型</td>";
+                            echo"<td>執行</td>";
+                            echo"<tr>";
             foreach ($subjects as $key => $subject) {
                 foreach ($join as $key => $value) {
                     if ($value['subject_id'] == $subject['id']) {
                         if ($log > 0 || strtotime($subject['end']) < strtotime(date("Y-m-d H:i:s"))) {
                             $a=$key+1;
-                            echo "<tr id='vote_end$a'>";
-                            echo "<td id='sub' class='sub'>{$subject['subject']}</td>";
-                            if (strtotime($subject['end']) < strtotime(date("Y-m-d H:i:s"))) {
-                                echo "<td class='end'>已截止</td>";
-                            } else {
-                                echo "<td class='end'>已投過</td>";
-                            }
+                            echo"<tr>";
+                            echo"<td>{$subject['subject']}</td>";
+                            echo"<td>{$subject['total']}</td>";
                             foreach ($type as $key => $typ) {
                                 if ($typ['id'] == $subject['type_id']) {
                                     echo "<td class='typ'>{$typ['name']}</td>";
                                 }
                             }
-                            echo "<td id='count' class='tal'>{$subject['total']}</td>";
-                            echo "<td class='do'><button type='button' id='open_result$a'>查看結果</button></td>";
-                            echo "</tr>";
-                            echo "<tr><th colspan='5'>";
-                            include "../back/result.php";
-                            echo "</th></tr>";
+                            echo "<div><button class='btnResult' type='button' id='open_result$a'>查看結果</button></div>";
+                            echo "</table>";
                         }
                     }
                 }
             }
-            ?>
-        </table>
+                        break;
+            }
+        } 
+        ?>
+
+
+    <div id="footer">
+        <p>版權為XXX所有，電話09XX-XXXXXX</p>
     </div>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" integrity="sha512-894YE6QWD5I59HgZOGReFYm4dnWc1Qt5NtvYSaNcOP+u1T9qYdvdihz0PPSiiqn/+/3e7Jo4EaG7TubfWGUrMQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous">
+    </script>
     <script>
         $(document).ready(function() {
 
@@ -262,7 +275,7 @@
             console.log(len)
 
             var opt_len = $(`#result6 tr td.opt`).length;
-                console.log(opt_len);
+            console.log(opt_len);
             for (let i = 1; i <= len; i++) {
 
                 var opt_len = $(`#result${i} tr td.opt`).length;
@@ -272,7 +285,7 @@
                     var w = $(`#result${i} tr td.color${j}`).width();
 
                     $(`#result${i} tr td.color${j}`).width(w * a);
-                    if ($(`#result${i} tr td.color${j}`).text()==0) {
+                    if ($(`#result${i} tr td.color${j}`).text() == 0) {
                         $(`#result${i} tr td.color${j}`).hide()
                     }
                 }
@@ -320,16 +333,7 @@
                 }
             })
 
-            if ($('#voting').is(':hidden')) {
-                $('#voting_btn').show();
-            } else {
-                $('#voting_btn').hide();
-            }
-            if ($('#voted').is(':hidden')) {
-                $('#voted_btn').show();
-            } else {
-                $('#voted_btn').hide();
-            }
+
         })
     </script>
 </body>
