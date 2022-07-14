@@ -22,13 +22,14 @@
             <a href="index.php">首頁</a>
             <?php
             include "./login/connect.php";
-            if (isset($_SESSION)) {
-            } else if ($_SESSION['id'] <= 3) {
-                echo   "<a href='./back/vote_center.php'>投票中心</a>";
+            if (isset($_SESSION)&&$_SESSION=="") {
+            if ($_SESSION['id'] <= 3) {
+                echo   "<a href='./front/vote_center.php'>投票中心</a>";
+                echo   "<a href='./back/back.php'>後台中心</a>";
             } else {
                 echo   "<a href='./front/vote_center.php'>投票中心</a>";
             }
-
+        }
             if (isset($_SESSION['user'])) {
             ?>
                 <a href="./front/member_center.php">會員中心</a>
