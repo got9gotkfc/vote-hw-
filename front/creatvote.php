@@ -7,18 +7,74 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="../css/body.css">
     <title>創建投票</title>
+    <style>
+        #content>form {
+            width: 100%;
+            display: grid;
+            grid-template-columns: repeat(5, 1fr);
+            grid-template-rows: repeat(11, 1fr);
+            grid-column: 7/12;
+            grid-row: 3/14;
+            border-radius: 10px;
+            background-color: #e17055;
+        }
+
+        #sub {
+            margin: 5px;
+            text-align: center;
+            grid-column: 1/6;
+            grid-row: 1/2;
+            color: white;
+        }
+
+        #type {
+            text-align: center;
+            grid-column: 1/6;
+            grid-row: 2/3;
+            color: white;
+        }
+
+        #selector {
+            text-align: center;
+            grid-column: 1/6;
+            grid-row: 3/4;
+            color: white;
+        }
+
+        #opt {
+            text-align: center;
+            grid-column: 1/6;
+            grid-row: 1fr;
+            color: white;
+        }
+
+        #new {
+            text-align: center;
+            grid-column: 1/6;
+            grid-row: 1fr;
+            color: white;
+
+        }
+
+        #end {
+            text-align: center;
+            grid-column: 1/6;
+            color: white;
+        }
+
+        form>input {
+            font-size: 20px;
+            text-align: center;
+            grid-column: 3/4;
+        }
+    </style>
 
 </head>
 
 <body>
     <div id="header">
         <div>創建投票</div>
-        <?php
-        // include "../function.php";
-        // if (!isset($_SESSION['user'])) {
-        //     to('../login/login.php');
-        // }
-        ?>
+
         <nav>
             <a href="../index.php">首頁</a>
             <?php
@@ -27,9 +83,9 @@
                 if ($_SESSION['id'] <= 3) {
                     echo   "<a href='../front/vote_center.php'>投票中心</a>";
                     echo   "<a href='../back.php'>後台中心</a>";
-                }else{
-                echo   "<a href='../front/vote_center.php'>投票中心</a>";
-            }
+                } else {
+                    echo   "<a href='../front/vote_center.php'>投票中心</a>";
+                }
             }
             if (isset($_SESSION['user'])) {
             ?>
@@ -45,13 +101,13 @@
     </div>
     <div id="content">
         <form action="../back/add_vote.php" method="post">
-
-            <div>
+            <div id="sub">
                 <label for="subject">投票主題</label>
                 <input type="text" name="subject" id="subject">
                 <input type="button" value="新增選項" id="more">
             </div>
             <div id="type">
+                <div>類別</div>
                 <select name="type" id="">
                     <option value="2">生活</option>
                     <option value="3">吃喝</option>
@@ -75,7 +131,7 @@
             <div id="opt">
                 <label>選項:</label>
                 <input type="text" name="option[]">
-                <input type="button" value="刪除" onclick="del()">
+                <input type="button" value="刪除" id="del">
             </div>
 
             <div id="end">
@@ -100,33 +156,39 @@
             //     opts = opts + opt;
             //     document.getElementById('opt').innerHTML = opts;
             // }
+            var a = 0;
             $('#more').click(function() {
-                let opt = `<div id="new"><label>選項:</label>
+                const opt = $(`<div id='new${a}' ><label>選項:</label>
             <input type="text" name="option[]">
-            <input type="button" value="刪除" onclick="del()"></div>`;
-                $('#opt').after(opt);
+            <input type="button" value="刪除" id="del"></div>`);
+                $('#opt').append(opt);
+                a += 1;
+                console.log(a);
             })
             // 新增和移除選項
             $('#selector').click(function() {
-                if($('#radio2').length>0){
-                    if ($('#radio').is(':checked')){
+                if ($('#radio2').length > 0) {
+                    if ($('#radio').is(':checked')) {
                         $('#chose').append("<option value='1' id='radio1'>1</option>")
-                        for (let i = 2; i <7; i++) {
+                        for (let i = 2; i < 7; i++) {
                             $(`#radio${i}`).remove()
                         }
                     }
-                }else if ($('#check').is(':checked')){
-                        $('#radio1').remove()
+                } else if ($('#check').is(':checked')) {
+                    $('#radio1').remove()
                     for (let i = 2; i < 7; i++) {
                         $('#chose').append(`<option value='${i}' id='radio${i}'>${i}</option>`)
                     }
                 }
             })
             // 刪除id為new的元素
-            function del() {
-                let opts = document.getElementById('new');
-                opts.remove('new');
-            }
+
+            $("#opt").on("click", "#del", function() {
+                var b = a - 1;
+                $(`#new${b}`).remove();
+                a -= 1;
+                console.log(b);
+            })
         })
     </script>
 </body>

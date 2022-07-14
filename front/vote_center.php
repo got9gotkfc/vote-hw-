@@ -59,14 +59,14 @@
             border-style: solid solid solid solid;
             border-width: 40px;
         }
-        #prev{
-       
-        }
+
         #next{
             text-align: center;
             grid-column: 16/17;
             grid-row: 8/10;
-
+            border-color: transparent  transparent transparent #0984e3;
+            border-style: solid solid solid solid;
+            border-width: 40px;
         }
 
 
@@ -177,6 +177,7 @@
         <button id="voted_btn">參與過的投票</button>
         <div id="ving">正在進行的投票</div>
         <div id="prev"></div>
+        <div id="next"></div>
     <?php
                 include_once "../function.php";
                 $subjects = all('subjects');
@@ -221,7 +222,7 @@
 
         <div id="voted">
         <div id="ved">參與過的投票</div>
-             <?php
+            <?php
 // $NoVotedSubject=true;
 // foreach ($subjects as $key => $subject) {
 //     foreach ($join as $key => $value) {
