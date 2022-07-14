@@ -48,6 +48,7 @@
             </tr>
             <tr>
                 <td><input type="hidden" name="reg_date" value="<?= date('Y-m-d H:i:s'); ?>"></td>
+                <td><input type="hidden" name="update_date" value="0000-00-00"></td>
             <tr>
             <tr>
                 <td colspan="2"><input type="submit" value="註冊" id="reg">

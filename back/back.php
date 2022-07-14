@@ -91,7 +91,8 @@
         if(isset($_GET['table'])){
         switch ($_GET['table']) {
             case '1':
-        ?><div id="typ_update">
+        ?>
+        <div id="typ_update">
                 <form action="./add_type.php" method="post">
                     <div id="typ">
                         <div>新增種類
@@ -103,8 +104,9 @@
                     <input type="submit" value="新增">
                 </form> 
             </div>
+
             <div id="typ_del">
-                <form action="./delete.php?id=type" method="post">
+                <form action="./delete.php" method="post">
                     <table>
                         <tr>
                             <td>種類</td>
@@ -116,7 +118,7 @@
                     // chk_array($type);
                     foreach ($types as $key => $type) {
                         echo "<tr>";
-                        echo "<td><input type='checkbox' name='types[]' value='{$key}'><label>{$type['name']}</label></td>";
+                        echo "<td><input type='checkbox' name='types[]' value='{$type['id']}'><label>{$type['name']}</label></td>";
                         echo "</tr>";
                     }
                     ?>
@@ -127,8 +129,10 @@
         <?php
                 break;
             case '2':        
-        ?><table id="users">
-            <form action="./delete.php?id=users" method="post">
+        ?>
+        
+        <table id="users">
+            <form action="./delete.php" method="post">
                     
                         <tr>
                             <td>序號</td>
@@ -180,7 +184,7 @@
                 break;
             case '3'
         ?><table id="sub_table">
-            <form action="./delete.php?id=subjects" method="post">
+            <form action="./delete.php" method="post">
                     
                         <tr>
                             <td>主題</td>
@@ -220,9 +224,9 @@
         ?>
 
     </div>
-    <div id="footer">
-        <p>版權為XXX所有，電話09XX-XXXXXX</p>
-    </div>
+    <?php
+   include "./footer.php";
+   ?>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" integrity="sha512-894YE6QWD5I59HgZOGReFYm4dnWc1Qt5NtvYSaNcOP+u1T9qYdvdihz0PPSiiqn/+/3e7Jo4EaG7TubfWGUrMQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     <script>
         $(document).ready(function() {

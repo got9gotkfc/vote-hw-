@@ -1,7 +1,7 @@
 <!-- 連結會員資料庫 -->
 <?php
-$dsn="mysql:host=localhost;charset=utf8;dbname=vote";
-$pdo=new PDO($dsn,'root','');
+$dsn = "mysql:host=localhost;charset=utf8;dbname=vote";
+$pdo = new PDO($dsn, 'root', '');
 session_start();
 
 

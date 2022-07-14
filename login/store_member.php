@@ -11,8 +11,8 @@ if ($_POST['acc'] == "" || $_POST['pw'] == "" || $_POST['name'] == "" || $_POST[
      if (isset($user) && $user != "") {
           header("location:../front/login.php?error=此帳號已經有人使用");
      } else {
-          $sql = "INSERT INTO `users`(`acc`,`pw`,`name`,`gender`,`birthday`,`eduction`,`addr`,`idcard`,`e-mail`,`phone`,`passnote`,`reg_date`)
-     values('{$_POST['acc']}','$pw','{$_POST['name']}','{$_POST['gender']}','{$_POST['birthday']}','{$_POST['eduction']}','{$_POST['addr']}','{$_POST['idcard']}','{$_POST['e-mail']}','{$_POST['phone']}','{$_POST['passnote']}','{$_POST['reg_date']}')";
+          $sql = "INSERT INTO `users`(`acc`,`pw`,`name`,`gender`,`birthday`,`eduction`,`addr`,`idcard`,`e-mail`,`phone`,`passnote`,`reg_date`,`update_date`)
+     values('{$_POST['acc']}','$pw','{$_POST['name']}','{$_POST['gender']}','{$_POST['birthday']}','{$_POST['eduction']}','{$_POST['addr']}','{$_POST['idcard']}','{$_POST['e-mail']}','{$_POST['phone']}','{$_POST['passnote']}','{$_POST['reg_date']}','{$_POST['update_date']}')";
           $pdo->exec($sql);
           header("location:../front/login.php");
      }

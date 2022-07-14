@@ -11,21 +11,21 @@
         form {
             display: grid;
             grid-template-columns: repeat(5, 1fr);
-            grid-template-rows: repeat(6, 1fr);
+            grid-template-rows: repeat(7, 1fr);
             grid-column: 7/12;
-            grid-row: 3/9;
+            grid-row: 3/10;
         }
 
         #tittle {
             text-align: center;
             font-size: 25px;
-            font-weight: bold;
+            font-weight: bolder;
             grid-column: 1/6;
             grid-row: 1/2;
             border-radius: 10px 10px 0 0;
             overflow: hidden;
-            background: #6c5ce7;
-            border-top: 2px solid #6c5ce7;
+            background: #00b894;
+            border-top: 2px solid #00b894;
             animation: expand 1s forwards ease-in-out;
             color: #dfe6e9;
         }
@@ -54,63 +54,68 @@
             width: calc(100% - 20px);
             height: 0;
             grid-column: 1/6;
-            grid-row: 2/7;
+            grid-row: 2/8;
             font-size: 20px;
-            border-radius: 0 0 0 10px ;
+            font-weight: bold;
+            border-radius: 0 0 0 10px;
             overflow: hidden;
-            background: #6c5ce7;
-            animation: expand2 1s forwards ;
+            background: #00b894;
+            animation: expand2 1s forwards;
             animation-delay: 0.7s;
             color: #dfe6e9;
         }
+
         @keyframes expand2 {
 
-0% {
-    /* margin-left: 100%; */
-    width: 0;
-    height: 0;
-}
+            0% {
+                /* margin-left: 100%; */
+                width: 0;
+                height: 0;
+            }
 
-50% {
-    /* margin-left: 0%; */
-    width: 80%;
-    height: 0;
-}
+            50% {
+                /* margin-left: 0%; */
+                width: 80%;
+                height: 0;
+            }
 
-75% {
-    width: 80%;
-    height: 100%;
-}
-100% {
-    width: 100%;
-    height: 100%;
-}
-}
-        #sm{
+            75% {
+                width: 80%;
+                height: 100%;
+            }
+
+            100% {
+                width: 100%;
+                height: 100%;
+            }
+        }
+
+        #sm {
             font-size: 20px;
             grid-column: 5/6;
-            grid-row: 6/7;
+            grid-row: 7/8;
             overflow: hidden;
-            background: #6c5ce7;
+            background: #00b894;
             border: #dfe6e9;
-            animation: expand3 0.6s forwards ;
+            animation: expand3 0.6s forwards;
             animation-delay: 1.6s;
             color: #dfe6e9;
         }
+
         @keyframes expand3 {
 
-0% {
-    /* margin-left: 100%; */
-    background: white;
-}
+            0% {
+                /* margin-left: 100%; */
+                background: white;
+            }
 
-100% {
-    /* margin-left: 0%; */
-    border: #dfe6e9;
-    background: #6c5ce7;
-}
+            100% {
+                /* margin-left: 0%; */
+                border: #dfe6e9;
+                background: #00b894;
+            }
 
-}
+        }
 
         #limit {
             display: none;
@@ -178,9 +183,9 @@
             ?>
         </form>
     </div>
-    <div id="footer">
-        <p>版權為XXX所有，電話09XX-XXXXXX</p>
-    </div>
+    <?php
+   include "../back/footer.php";
+   ?>
 </body>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" integrity="sha512-894YE6QWD5I59HgZOGReFYm4dnWc1Qt5NtvYSaNcOP+u1T9qYdvdihz0PPSiiqn/+/3e7Jo4EaG7TubfWGUrMQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 <script>

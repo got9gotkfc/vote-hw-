@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- 主機： 127.0.0.1
--- 產生時間： 2022-07-13 12:55:31
+-- 產生時間： 2022-07-14 18:21:57
 -- 伺服器版本： 10.4.24-MariaDB
 -- PHP 版本： 8.1.6
 
@@ -20,19 +20,6 @@ SET time_zone = "+00:00";
 --
 -- 資料庫： `vote`
 --
-
--- --------------------------------------------------------
-
---
--- 資料表結構 `admins`
---
-
-CREATE TABLE `admins` (
-  `id` int(11) UNSIGNED NOT NULL,
-  `acc` varchar(12) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `pw` varchar(16) COLLATE utf8mb4_unicode_ci NOT NULL COMMENT '帳號',
-  `name` varchar(12) COLLATE utf8mb4_unicode_ci NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- --------------------------------------------------------
 
@@ -85,7 +72,8 @@ INSERT INTO `log` (`id`, `user_id`, `subject_id`, `option_id`, `vote_time`) VALU
 (41, 5, 11, 4, '2022-07-10 23:31:00'),
 (42, 11, 11, 0, '2022-07-12 22:43:00'),
 (43, 11, 11, 1, '2022-07-12 22:43:00'),
-(44, 11, 11, 3, '2022-07-12 22:43:00');
+(44, 11, 11, 3, '2022-07-12 22:43:00'),
+(45, 1, 13, 1, '2022-07-14 03:47:00');
 
 -- --------------------------------------------------------
 
@@ -139,7 +127,17 @@ INSERT INTO `options` (`id`, `option`, `subject_id`, `total`) VALUES
 (34, '打電動', 11, 1),
 (35, '打羽球', 11, 1),
 (36, '打漆彈', 11, 1),
-(37, '打籃球', 11, 0);
+(37, '打籃球', 11, 0),
+(38, '雷神索爾', 12, 0),
+(39, '咒', 12, 0),
+(40, '奇異博士', 12, 0),
+(41, '蜘蛛人', 12, 0),
+(42, '峰迴路轉', 12, 0),
+(43, '東方快車謀殺案', 12, 0),
+(44, '烤肉', 13, 0),
+(45, '去阿里山賞月', 13, 1),
+(46, '陪家人吃飯', 13, 0),
+(47, '考乙級', 13, 0);
 
 -- --------------------------------------------------------
 
@@ -171,7 +169,9 @@ INSERT INTO `subjects` (`id`, `subject`, `type_id`, `multiple`, `mulit_limit`, `
 (6, '明天去家樂福要買甚麼?', 2, 1, 3, '2022-06-28 06:37:00', '2022-06-28 19:38:00', 1),
 (7, '晚餐吃甚麼?', 3, 0, 1, '2022-06-28 07:27:00', '2022-06-28 20:00:00', 1),
 (10, '下個周末要去哪裡玩?', 6, 1, 3, '2022-07-11 04:45:00', '2022-07-15 21:00:00', 1),
-(11, '星期日要做甚麼?', 6, 1, 3, '2022-07-11 04:49:00', '2022-07-15 21:00:00', 2);
+(11, '星期日要做甚麼?', 6, 1, 3, '2022-07-11 04:49:00', '2022-07-15 21:00:00', 2),
+(12, '電影要看哪一部?', 4, 1, 2, '2022-07-14 06:09:00', '2022-07-21 00:00:00', 0),
+(13, '中秋節要幹嘛?', 2, 0, 1, '2022-07-14 06:11:00', '2022-07-21 00:00:00', 2);
 
 -- --------------------------------------------------------
 
@@ -193,7 +193,10 @@ INSERT INTO `type` (`id`, `name`) VALUES
 (3, '吃喝'),
 (4, '娛樂'),
 (5, '心理'),
-(6, '旅遊');
+(6, '旅遊'),
+(7, '政治'),
+(8, '兩性'),
+(10, '政治');
 
 -- --------------------------------------------------------
 
@@ -228,17 +231,12 @@ INSERT INTO `users` (`id`, `acc`, `pw`, `name`, `gender`, `birthday`, `eduction`
 (3, 'tarnway', 'e10adc3949ba59abbe56e057f20f883e', '小瑋', 1, '1989-04-29', '科技大學', '台北市', 'A123456789', '123456@yahoo.com.tw', '0900123456', '123456', '2022-06-27 21:53:38', '0000-00-00'),
 (4, 'test', 'd41d8cd98f00b204e9800998ecf8427e', 'T', 0, '2022-06-27', '台灣長大', '台北市', 'A123456789', '123456@yahoo.com.tw', '0900123456', '123456', '2022-06-27 21:55:24', '2022-06-28'),
 (5, 'test2', 'e10adc3949ba59abbe56e057f20f883e', 'aaa', 0, '2022-06-28', '彰化師範大學', '台北市', 'A123456789', '123456@yahoo.com.tw', 'bbb', '123456', '2022-06-28 12:47:05', '2022-06-28'),
-(11, 'apple', '1f3870be274f6c49b3e31a0c6728957f', 'apple', 1, '2022-07-11', '城市科技大學', '台北市', 'F123456789', '123456@yahoo.com.tw', '0900123456', 'apple', '2022-07-11 17:48:38', '0000-00-00');
+(11, 'apple', '1f3870be274f6c49b3e31a0c6728957f', 'apple', 1, '2022-07-11', '城市科技大學', '台北市', 'F123456789', '123456@yahoo.com.tw', '0900123456', 'apple', '2022-07-11 17:48:38', '2022-07-14'),
+(12, 'banana', '72b302bf297a228a75730123efef7c41', 'banana', 0, '2022-07-14', '輔仁大學', '台北市', 'A123456789', '123456@yahoo.com.tw', '0900123456', 'banana', '2022-07-14 12:12:43', '0000-00-00');
 
 --
 -- 已傾印資料表的索引
 --
-
---
--- 資料表索引 `admins`
---
-ALTER TABLE `admins`
-  ADD PRIMARY KEY (`id`);
 
 --
 -- 資料表索引 `log`
@@ -275,40 +273,34 @@ ALTER TABLE `users`
 --
 
 --
--- 使用資料表自動遞增(AUTO_INCREMENT) `admins`
---
-ALTER TABLE `admins`
-  MODIFY `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT;
-
---
 -- 使用資料表自動遞增(AUTO_INCREMENT) `log`
 --
 ALTER TABLE `log`
-  MODIFY `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=45;
+  MODIFY `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=46;
 
 --
 -- 使用資料表自動遞增(AUTO_INCREMENT) `options`
 --
 ALTER TABLE `options`
-  MODIFY `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=38;
+  MODIFY `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=48;
 
 --
 -- 使用資料表自動遞增(AUTO_INCREMENT) `subjects`
 --
 ALTER TABLE `subjects`
-  MODIFY `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
+  MODIFY `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
 
 --
 -- 使用資料表自動遞增(AUTO_INCREMENT) `type`
 --
 ALTER TABLE `type`
-  MODIFY `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 
 --
 -- 使用資料表自動遞增(AUTO_INCREMENT) `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
+  MODIFY `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

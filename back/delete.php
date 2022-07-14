@@ -1,21 +1,34 @@
 <?php
 include_once "../function.php";
-$id=$_GET['id'];
-switch ($_GET['id']) {
-    case 'type':
-        foreach ($_POST as $key => $value) {
-            del('type',"`name`='$value'");
-            to("../back.php");
+
+
+foreach ($_POST as $key => $value) {
+    chk_array($key);
+switch ($key) {
+    case 'types':
+        foreach ($value  as $val) {
+            del('type',"`id`='$val'");
+        }  
+        to("./back.php?table=1");
+        
+        break;
+    case 'user':
+        foreach ($value  as $val) {
+            del('users',"`id`='$val'");
+            
         }
-         
+        to("./back.php?table=2");
         break;
-    
-    default:
-        # code...
+    case 'subject':
+        foreach ($value  as $val) {
+            del('subjects',"`id`='$val'");
+        
+        }
+        to("./back.php?table=3");
         break;
+    }
 }
-del('subjects',"`id`='$id'");
-del('options',"`subject_id`='$id'");
-del('log',"`subject_id`='$id'");
-to("../back.php");
+// to("./back.php");
+
+
 ?>
