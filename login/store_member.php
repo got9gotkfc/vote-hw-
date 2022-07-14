@@ -2,7 +2,7 @@
 include_once "connect.php";
 include "../function.php";
 if ($_POST['acc'] == "" || $_POST['pw'] == "" || $_POST['name'] == "" || $_POST['gender'] == "" || $_POST['birthday'] == "" || $_POST['eduction'] == "" || $_POST['addr'] == "" || $_POST['idcard'] == "" || $_POST['e-mail'] == "" || $_POST['phone'] == "" || $_POST['passnote'] == "") {
-     header("location:../front/login.php?alert=2");
+     header("location:../front/login.php?alert=請輸入完整資料");
 } else {
      $acc = $_POST['acc'];
      $pw = md5($_POST['pw']);

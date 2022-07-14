@@ -25,13 +25,13 @@ if (isset($_POST['acc_login'])||$_POST['acc_login']!="") {
         ];
         header("location:../front/member_center.php");
     } else {
-        header("location:../front/login.php?error=帳號或密碼錯誤");
+        header("location:../front/login.php?error=帳號或密碼錯誤!!");
     }
 } else {
     // 檢查登入了沒 沒登入則跳到login
     if (isset($_SESSION['user'])) {
         header("location:../front/vote_center.php");
     } else {
-        header("location:../front/login.php?alert=1");
+        header("location:../front/login.php?alert=請輸入完整的帳號和密碼");
     }
 }
