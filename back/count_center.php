@@ -59,16 +59,11 @@ if ($log == "") {
 
 
 
-    if ($_SESSION['id'] <= 3) {
-        to('./vote_center.php');
-    } else {
         to('../front/vote_center.php');
-    }
+    
 } else {
     echo "<h1>無法重複投票</h1>";
-    if ($_SESSION['id'] <= 3) {
-        echo "<a href='./vote_center.php'>回投票中心</a>";
-    } else {
-        echo "<a href='../front/vote_center.php'>回投票中心</a>";
-    }
+    
+    echo "<a href='../front/vote_center.php'>回投票中心</a>";
+    
 }

@@ -8,63 +8,69 @@
     <link rel="stylesheet" href="../css/body.css">
     <title>投票中心</title>
     <style>
-       #voting_btn {
+        #voting_btn {
             grid-column: 2/4;
             grid-row: 2/3;
             font-weight: bold;
             margin-bottom: 10px;
         }
+
         #voted_btn {
             grid-column: 4/6;
             grid-row: 2/3;
             font-weight: bold;
             margin-bottom: 10px;
         }
-        #ving{
+
+        #ving {
             grid-column: 6/13;
             grid-row: 3/4;
         }
-        #ving0{
+
+        #ving0 {
             grid-column: 2/6;
             grid-row: 6/12;
-            border-radius:5px ;
+            border-radius: 5px;
             border: 1px solid #74b9ff;
-            border-left:2px solid black;
+            border-left: 2px solid black;
             border-bottom: 2px solid black;
             background-color: #74b9ff;
             color: white;
         }
-        #ving1{
+
+        #ving1 {
             grid-column: 7/12;
             grid-row: 5/13;
-            border-radius:5px ;
+            border-radius: 5px;
             background-color: #74b9ff;
             color: white;
         }
-        #ving2{
+
+        #ving2 {
             grid-column: 13/16;
             grid-row: 6/12;
-            border-radius:5px ;
+            border-radius: 5px;
             border: 1px solid #74b9ff;
-            border-right:2px solid black;
+            border-right: 2px solid black;
             border-bottom: 2px solid black;
             background-color: #74b9ff;
             color: white;
         }
-        #prev{
+
+        #prev {
             text-align: center;
             grid-column: 1/2;
             grid-row: 8/10;
-            border-color: transparent #0984e3 transparent transparent ;
+            border-color: transparent #0984e3 transparent transparent;
             border-style: solid solid solid solid;
             border-width: 40px;
         }
 
-        #next{
+        #next {
             text-align: center;
             grid-column: 16/17;
             grid-row: 8/10;
-            border-color: transparent  transparent transparent #0984e3;
+            border-color: transparent transparent transparent #0984e3;
             border-style: solid solid solid solid;
             border-width: 40px;
         }
@@ -73,8 +79,8 @@
 
         .result {
             width: 100%;
-            border-top : 1px solid #636e72;
-            border-bottom : 1px solid #636e72;
+            border-top: 1px solid #636e72;
+            border-bottom: 1px solid #636e72;
 
         }
 
@@ -140,8 +146,7 @@
             border: 1px solid #636e72;
 
         }
-
-    </style> 
+    </style>
 </head>
 
 <body>
@@ -151,113 +156,109 @@
             <a href="../index.php">首頁</a>
             <a href="./creatvote.php">創建投票</a>
             <?php
-                include_once "../login/connect.php";
-                if (isset($_SESSION)) {
-                    if ($_SESSION['id'] <= 3) {
-                        echo "<a href='./member_center.php'>會員中心</a>";
-                        echo "<a href='../back/back.php'>後台中心</a>";
-                    }else{
-                        echo   "<a href='./vote_center.php'>投票中心</a>";
-                    }
+            include_once "../login/connect.php";
+            if (isset($_SESSION)) {
+                if ($_SESSION['id'] <= 3) {
+                    echo "<a href='./member_center.php'>會員中心</a>";
+                    echo "<a href='../back/back.php'>後台中心</a>";
+                } else {
+                    echo   "<a href='./vote_center.php'>投票中心</a>";
                 }
-                if (isset($_SESSION['user'])) {
+            }
+            if (isset($_SESSION['user'])) {
             ?>
                 <a href="../login/logout.php">登出</a>
             <?php
-                } else {
+            } else {
             ?>
                 <a href="./login.php">登入</a>
             <?php
-                }
+            }
             ?>
         </nav>
     </div>
     <div id="content">
-        <button id="voting_btn">正在進行的投票</button>
-        <button id="voted_btn">參與過的投票</button>
-        <div id="ving">正在進行的投票</div>
+        <a href="./vote_center.php?table=1" id="voting_btn">正在進行的投票</a>
+        <a href="./vote_center.php?table=2" id="voted_btn">餐與過的投票</a>
+
         <div id="prev"></div>
         <div id="next"></div>
-    <?php
-                include_once "../function.php";
-                $subjects = all('subjects');
-                $join = [];
-                $ving = [];
-                // chk_array($_SESSION);
-                $NoVotingSubject = true;
-                foreach ($subjects as $key => $subject) {
-                    // 判斷有沒有參與過投票
-                    $find_log = [
-                        'user_id' => $_SESSION['id'],
-                        'subject_id' => $subject['id'],
-                    ];
-                    $log = c('log', $find_log);
-                    $type = all('type');
-                    if ($log == 0 && strtotime($subject['end']) > strtotime(date("Y-m-d H:i:s"))) {
-                        $NoVotingSubject = false;
-                        array_push($ving, $subject);
-                    }
-                    if (search('log', $find_log) != "") {
-                        array_push($join, search('log', $find_log));
-                    }
-                }
-                foreach ($ving as $key => $subject) {
-                    echo "<div class='card' id='ving{$key}'>";
-                    echo "<div class='card-title'>{$subject['subject']}</div>";
-                    echo "<div class='card-text'>截止時間 : {$subject['end']}</div>";
-                    echo "<hdiv class='card-text'>投票人數 : {$subject['total']}</hdiv>";
-                    foreach ($type as $key => $typ) {
-                        if ($typ['id'] == $subject['type_id']) {
-                            echo "<div class='typ'>類型:{$typ['name']}</div>";
+        <?php
+        include_once "../function.php";
+        $subjects = all('subjects');
+        $join = [];
+        $ving = [];
+        // chk_array($_SESSION);
+        
+        if (isset($_GET['table'])) {
+            switch ($_GET['table']) {
+                case '1':
+                    echo "<div id='ving'>正在進行的投票</div>";
+                    foreach ($subjects as $key => $subject) {
+                        // 判斷有沒有參與過投票
+                        $find_log = [
+                            'user_id' => $_SESSION['id'],
+                            'subject_id' => $subject['id'],
+                        ];
+                        $log = c('log', $find_log);
+                        $type = all('type');
+                        if ($log == 0 && strtotime($subject['end']) > strtotime(date("Y-m-d H:i:s"))) {
+                            $NoVotingSubject = false;
+                            array_push($ving, $subject);
+                        }
+                        if (search('log', $find_log) != "") {
+                            array_push($join, search('log', $find_log));
                         }
                     }
-                    echo "<a href='./vote.php?id={$subject['id']}' class='card-link'>開始投票</a>";
-                    echo "</div>";
+                    foreach ($ving as $key => $subject) {
+                        echo "<div id='ving{$key}'>";
+                        echo "<div >{$subject['subject']}</div>";
+                        echo "<div >截止時間 : {$subject['end']}</div>";
+                        echo "<div >投票人數 : {$subject['total']}</hdiv>";
+                        foreach ($type as $key => $typ) {
+                            if ($typ['id'] == $subject['type_id']) {
+                                echo "<div class='typ'>類型:{$typ['name']}</div>";
+                            }
+                        }
+                        echo "<a href='./vote.php?id={$subject['id']}' class='card-link'>開始投票</a>";
+                        echo "</div>";
+                    }
+                    break;
+
+                case '2':
+            echo "<div id='ved'>參與過的投票</div>";
+            foreach ($subjects as $key => $subject) {
+                foreach ($join as $key => $value) {
+                    if ($value['subject_id'] == $subject['id']) {
+                        if ($log > 0 || strtotime($subject['end']) < strtotime(date("Y-m-d H:i:s"))) {
+                            $a=$key+1;
+                            $NoVotedSubject=false;
+                            echo "<div class='card-body'>";
+                            echo "<div>{$subject['subject']}</div>";
+                            echo "<div>截止時間 : {$subject['end']}</div>";
+                            echo "<div>投票人數 : {$subject['total']}</div>";
+                            foreach ($type as $key => $typ) {
+                                if ($typ['id'] == $subject['type_id']) {
+                                    echo "<div class='typ'>類型:{$typ['name']}</div>";
+                                }
+                            }
+                            echo "<div><button class='btnResult' type='button' id='open_result$a'>查看結果</button></div>";
+                            echo "</div>";
+                        }
+                    }
                 }
+            }
+                        break;
+            }
+        } 
+        ?>
 
-// if($NoVotingSubject){
-//     echo "<div id='null'>無<div>";
-// }
-    ?>
 
-        <div id="voted">
-        <div id="ved">參與過的投票</div>
-            <?php
-// $NoVotedSubject=true;
-// foreach ($subjects as $key => $subject) {
-//     foreach ($join as $key => $value) {
-//         if ($value['subject_id'] == $subject['id']) {
-//             if ($log > 0 || strtotime($subject['end']) < strtotime(date("Y-m-d H:i:s"))) {
-//                 $a=$key+1;
-//                 $NoVotedSubject=false;
-//                 echo "<div class='card' style='width: 18rem;'>";
-//                 echo "<div class='card-body'>";
-//                 echo "<h4 class='card-title'>{$subject['subject']}</h4>";
-//                 echo "<h6 class='card-text'>截止時間 : {$subject['end']}</h6>";
-//                 echo "<h6 class='card-text'>投票人數 : {$subject['total']}</h6>";
-//                 if (strtotime($subject['end']) < strtotime(date("Y-m-d H:i:s"))) {
-//                     echo "<h6 class='card-text'>類型 : 已截止</h6>";
-//                 } else {
-//                     echo "<h6 class='card-text'>類型 : 已投過</h6>";
-//                 }
-//                 echo "<button class='btnResult' type='button' id='open_result$a'>查看結果</button>";
-//                 echo "</div>";
-//                 echo "</div>";
-//             }
-//         }
-//     }
-// }
-// if($NoVotedSubject){
-//     echo "<h6>無</h6>";
-// }
-    ?>
-        </div> -->
-    </div>
     <div id="footer">
         <p>版權為XXX所有，電話09XX-XXXXXX</p>
     </div>
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous">
-    </script> 
+    </script>
     <script>
         $(document).ready(function() {
 
@@ -268,7 +269,7 @@
             console.log(len)
 
             var opt_len = $(`#result6 tr td.opt`).length;
-                console.log(opt_len);
+            console.log(opt_len);
             for (let i = 1; i <= len; i++) {
 
                 var opt_len = $(`#result${i} tr td.opt`).length;
@@ -278,7 +279,7 @@
                     var w = $(`#result${i} tr td.color${j}`).width();
 
                     $(`#result${i} tr td.color${j}`).width(w * a);
-                    if ($(`#result${i} tr td.color${j}`).text()==0) {
+                    if ($(`#result${i} tr td.color${j}`).text() == 0) {
                         $(`#result${i} tr td.color${j}`).hide()
                     }
                 }
