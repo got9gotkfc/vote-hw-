@@ -1,3 +1,7 @@
+<?php
+include_once "../login/connect.php";
+include_once "../function.php";
+?>
 <meta charset="UTF-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -145,7 +149,7 @@
             <a href="../index.php">首頁</a>
             <a href="./creatvote.php">創建投票</a>
             <?php
-            include_once "../login/connect.php";
+            
             if (isset($_SESSION)) {
                 if ($_SESSION['id'] <= 3) {
                     echo "<a href='./member_center.php'>會員中心</a>";
@@ -171,7 +175,7 @@
         <a href="./vote_center.php?table=2" id="voted_btn">參與過或已結束的投票</a>
         <?php
         if (isset($_GET['table']) && $_GET['table'] != "") {
-            include "../function.php";
+            
             $subjects = all('subjects');
             switch ($_GET['table']) {
                 case '1':
@@ -279,9 +283,7 @@
 
 
     </div>
-    <?php
-   include "../back/footer.php";
-   ?>
+    
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" integrity="sha512-894YE6QWD5I59HgZOGReFYm4dnWc1Qt5NtvYSaNcOP+u1T9qYdvdihz0PPSiiqn/+/3e7Jo4EaG7TubfWGUrMQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     <script>
         $(document).ready(function() {
